@@ -1,7 +1,7 @@
 module.exports = {
   babelrc: {
     presets: [
-      '@babel/preset-env'
+      '@babel/env'
     ],
     sourceMaps: 'inline'
   },

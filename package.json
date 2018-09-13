@@ -1,10 +1,9 @@
 {
   "name": "@antv/coord",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Coordinate systems used in G2",
   "browser": "build/coord.js",
-  "main": "lib/coord.js",
-  "module": "src/index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:antvis/coord.git"
@@ -90,6 +89,6 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/util": "~1.2.2"
+    "@antv/util": "~1.2.3"
   }
 }

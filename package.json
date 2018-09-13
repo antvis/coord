@@ -90,6 +90,6 @@
     "silent": false
   },
   "dependencies": {
-    "lodash": "~4.17.4"
+    "@antv/util": "~1.2.2"
   }
 }

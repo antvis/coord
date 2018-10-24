@@ -1,6 +1,6 @@
 {
   "name": "@antv/coord",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Coordinate systems used in G2",
   "browser": "build/coord.js",
   "main": "lib/index.js",
@@ -89,6 +89,6 @@
     "silent": false
   },
   "dependencies": {
-    "@antv/util": "~1.2.3"
+    "@antv/util": "~1.3.1"
   }
 }

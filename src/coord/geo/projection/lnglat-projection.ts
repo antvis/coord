@@ -1,5 +1,5 @@
-import { LngLat } from '../geometry/lng-lat';
 import { Bounds } from '../geometry/bounds';
+import { LngLat } from '../geometry/lng-lat';
 import { Point } from '../geometry/point';
 
 export const lngLatProjection = {

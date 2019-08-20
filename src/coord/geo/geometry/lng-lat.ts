@@ -1,12 +1,12 @@
-import { earth } from '../crs/earth';
 import { formatNum } from '../../../util';
-import { toLngLatBounds } from './lng-lat-bounds';
+import { earth } from '../crs/earth';
 import { LngLatExpression } from '../interface';
+import { toLngLatBounds } from './lng-lat-bounds';
 
 export class LngLat {
-  lat: number;
-  lng: number;
-  alt?: number;
+  public lat: number;
+  public lng: number;
+  public alt?: number;
   constructor(lng: number, lat: number, alt?: number) {
     if (isNaN(lat) || isNaN(lng)) {
       throw new Error(`无效的经纬度参数: (${lng},' ${lat}`);
@@ -17,49 +17,41 @@ export class LngLat {
       this.alt = +alt;
     }
   }
-  equals(lnglat: LngLatExpression, threshold?: number): boolean {
+  public equals(lnglat: LngLatExpression, threshold?: number): boolean {
     if (!lnglat) {
       return false;
     }
-    const newLnglat : LngLat = toLngLat(lnglat);
+    const newLnglat: LngLat = toLngLat(lnglat);
     if (newLnglat === undefined) {
       return false;
     }
-    const margin = Math.max(
-      Math.abs(this.lat - newLnglat.lat),
-      Math.abs(this.lng - newLnglat.lng),
-    );
+    const margin = Math.max(Math.abs(this.lat - newLnglat.lat), Math.abs(this.lng - newLnglat.lng));
     return margin <= (threshold === undefined ? 1.0e-9 : threshold);
   }
-  toString(precision: number): string {
-    return (
-      `LngLat(${formatNum(this.lng, precision)}, ${formatNum(this.lat, precision)})`
-    );
+  public toString(precision: number): string {
+    return `LngLat(${formatNum(this.lng, precision)}, ${formatNum(this.lat, precision)})`;
   }
-  distanceTo(other:LngLatExpression):number {
+  public distanceTo(other: LngLatExpression): number {
     return earth.distance(this, toLngLat(other));
   }
-  wrap():LngLat {
+  public wrap(): LngLat {
     // console.log(earth.infinite);
     return earth.wrapLngLat(this);
   }
-  toBounds(sizeInMeters:number) {
-    const latAccuracy = 180 * sizeInMeters / 40075017;
+  public toBounds(sizeInMeters: number) {
+    const latAccuracy = (180 * sizeInMeters) / 40075017;
     const lngAccuracy = latAccuracy / Math.cos((Math.PI / 180) * this.lat);
 
     return toLngLatBounds(
-              [this.lng - lngAccuracy, this.lat - latAccuracy],
-              [this.lng + lngAccuracy, this.lat + latAccuracy]);
+      [this.lng - lngAccuracy, this.lat - latAccuracy],
+      [this.lng + lngAccuracy, this.lat + latAccuracy]
+    );
   }
-  clone() {
+  public clone() {
     return new LngLat(this.lng, this.lat, this.alt);
   }
 }
-export function toLngLat(
-  a: LngLatExpression | number,
-  b?: number,
-  c?: number,
-): LngLat {
+export function toLngLat(a: LngLatExpression | number, b?: number, c?: number): LngLat {
   if (a instanceof LngLat) {
     return a;
   }

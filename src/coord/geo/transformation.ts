@@ -1,9 +1,9 @@
 import { Point } from './geometry/point';
 export class Transformation {
-  a!: number;
-  b!: number;
-  c!: number;
-  d!: number;
+  public a!: number;
+  public b!: number;
+  public c!: number;
+  public d!: number;
   constructor(a: number | number[], b?: number, c?: number, d?: number) {
     if (Array.isArray(a)) {
       // use array properties
@@ -17,22 +17,18 @@ export class Transformation {
     this.b = b as number;
     this.c = c as number;
     this.d = d as number;
-
   }
-  transform(point:Point, scale?:number):Point {
-
+  public transform(point: Point, scale?: number): Point {
     return this._transform(point.clone(), scale);
   }
-  _transform(point:Point, scale?:number):Point {
+  public _transform(point: Point, scale?: number): Point {
     const newScale = scale || 1;
     point.x = newScale * (this.a * point.x + this.b);
     point.y = newScale * (this.c * point.y + this.d);
     return point;
   }
-  untransform(point:Point, scale:number):Point {
+  public untransform(point: Point, scale: number): Point {
     const newScale = scale || 1;
-    return new Point(
-            (point.x / newScale - this.b) / this.a,
-            (point.y / newScale - this.d) / this.c);
+    return new Point((point.x / newScale - this.b) / this.a, (point.y / newScale - this.d) / this.c);
   }
 }

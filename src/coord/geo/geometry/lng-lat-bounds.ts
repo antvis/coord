@@ -1,16 +1,9 @@
-import {
-  LngLatExpression,
-  LngLatBoundsExpression,
-  LngLatBoundsLiteral,
-} from '../interface';
+import { LngLatBoundsExpression, LngLatBoundsLiteral, LngLatExpression } from '../interface';
 import { LngLat, toLngLat } from './lng-lat';
 export class LngLatBounds {
-  southWest!: LngLat;
-  northEast!: LngLat;
-  constructor(
-    corner1: LngLatExpression | LngLatBoundsLiteral,
-    corner2?: LngLatExpression,
-  ) {
+  public southWest!: LngLat;
+  public northEast!: LngLat;
+  constructor(corner1: LngLatExpression | LngLatBoundsLiteral, corner2?: LngLatExpression) {
     if (!corner1) {
       return;
     }
@@ -22,11 +15,11 @@ export class LngLatBounds {
       }
     }
   }
-  extend(obj: LngLatExpression | LngLatBoundsExpression): LngLatBounds {
-    const sw:LngLat = this.southWest;
-    const ne:LngLat = this.northEast;
-    let sw2:LngLat;
-    let ne2:LngLat;
+  public extend(obj: LngLatExpression | LngLatBoundsExpression): LngLatBounds {
+    const sw: LngLat = this.southWest;
+    const ne: LngLat = this.northEast;
+    let sw2: LngLat;
+    let ne2: LngLat;
 
     if (obj instanceof LngLat) {
       sw2 = obj;
@@ -61,53 +54,46 @@ export class LngLatBounds {
    * 放大或者缩小区域
    * @param bufferRatio 缩放比率
    */
-  pad(bufferRatio: number): LngLatBounds {
+  public pad(bufferRatio: number): LngLatBounds {
     const sw = this.southWest;
     const ne = this.northEast;
     const heightBuffer = Math.abs(sw.lat - ne.lat) * bufferRatio;
     const widthBuffer = Math.abs(sw.lng - ne.lng) * bufferRatio;
     return new LngLatBounds(
       new LngLat(sw.lng - widthBuffer, sw.lat - heightBuffer),
-      new LngLat(ne.lng + widthBuffer, ne.lat + heightBuffer),
+      new LngLat(ne.lng + widthBuffer, ne.lat + heightBuffer)
     );
   }
-  getCenter(): LngLat {
-    return new LngLat(
-      (this.southWest.lng + this.northEast.lng) / 2,
-      (this.southWest.lat + this.northEast.lat) / 2,
-    );
+  public getCenter(): LngLat {
+    return new LngLat((this.southWest.lng + this.northEast.lng) / 2, (this.southWest.lat + this.northEast.lat) / 2);
   }
-  getSouthWest(): LngLat {
+  public getSouthWest(): LngLat {
     return this.southWest;
   }
-  getNorthEast(): LngLat {
+  public getNorthEast(): LngLat {
     return this.northEast;
   }
-  getNorthWest(): LngLat {
+  public getNorthWest(): LngLat {
     return new LngLat(this.getWest(), this.getNorth());
   }
-  getSouthEast() {
+  public getSouthEast() {
     return new LngLat(this.getEast(), this.getSouth());
   }
-  getWest(): number {
+  public getWest(): number {
     return this.southWest.lng;
   }
-  getSouth(): number {
+  public getSouth(): number {
     return this.southWest.lat;
   }
-  getNorth(): number {
+  public getNorth(): number {
     return this.northEast.lat;
   }
-  getEast(): number {
+  public getEast(): number {
     return this.northEast.lng;
   }
-  contains(obj: LngLatExpression | LngLatBoundsExpression) {
+  public contains(obj: LngLatExpression | LngLatBoundsExpression) {
     let newObj = obj;
-    if (
-      (Array.isArray(newObj) && typeof newObj[0] === 'number') ||
-      newObj instanceof LngLat ||
-      'lat' in newObj
-    ) {
+    if ((Array.isArray(newObj) && typeof newObj[0] === 'number') || newObj instanceof LngLat || 'lat' in newObj) {
       newObj = toLngLat(newObj as LngLatExpression);
     } else {
       newObj = toLngLatBounds(newObj);
@@ -123,15 +109,10 @@ export class LngLatBounds {
     } else {
       sw2 = ne2 = newObj;
     }
-    return (
-      sw2.lat >= sw.lat &&
-      ne2.lat <= ne.lat &&
-      sw2.lng >= sw.lng &&
-      ne2.lng <= ne.lng
-    );
+    return sw2.lat >= sw.lat && ne2.lat <= ne.lat && sw2.lng >= sw.lng && ne2.lng <= ne.lng;
   }
   // 包含相邻的多边形
-  intersects(bounds: LngLatBoundsExpression): boolean {
+  public intersects(bounds: LngLatBoundsExpression): boolean {
     const newBounds = toLngLatBounds(bounds);
     const sw = this.southWest;
     const ne = this.northEast;
@@ -142,7 +123,7 @@ export class LngLatBounds {
     return latIntersects && lngIntersects;
   }
   // 不包括相邻的多边形
-  overlaps(bounds: LngLatBoundsExpression) {
+  public overlaps(bounds: LngLatBoundsExpression) {
     const newBounds = toLngLatBounds(bounds);
     const sw = this.southWest;
     const ne = this.northEast;
@@ -152,15 +133,10 @@ export class LngLatBounds {
     const lngOverlaps = ne2.lng > sw.lng && sw2.lng < ne.lng;
     return latOverlaps && lngOverlaps;
   }
-  toBBoxString(): string {
-    return [
-      this.getWest(),
-      this.getSouth(),
-      this.getEast(),
-      this.getNorth(),
-    ].join(',');
+  public toBBoxString(): string {
+    return [this.getWest(), this.getSouth(), this.getEast(), this.getNorth()].join(',');
   }
-  equals(bounds: LngLatBoundsExpression, maxMargin: number): boolean {
+  public equals(bounds: LngLatBoundsExpression, maxMargin: number): boolean {
     if (!bounds) {
       return false;
     }
@@ -170,15 +146,12 @@ export class LngLatBounds {
       this.northEast.equals(newBounds.getNorthEast(), maxMargin)
     );
   }
-  isValid() {
+  public isValid() {
     return !!(this.southWest && this.northEast);
   }
 }
 
-export function toLngLatBounds(
-  a: LngLatExpression | LngLatBounds | LngLatBoundsLiteral,
-  b?: LngLatExpression,
-) {
+export function toLngLatBounds(a: LngLatExpression | LngLatBounds | LngLatBoundsLiteral, b?: LngLatExpression) {
   if (a instanceof LngLatBounds) {
     return a;
   }

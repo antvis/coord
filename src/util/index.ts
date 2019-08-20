@@ -1,7 +1,6 @@
-const trunc =
-  function (v:number): number {
-    return v > 0 ? Math.floor(v) : Math.ceil(v);
-  };
+const trunc = function(v: number): number {
+  return v > 0 ? Math.floor(v) : Math.ceil(v);
+};
 function formatNum(num: number, digits?: number) {
   const pow = Math.pow(10, digits === undefined ? 6 : digits);
   return Math.round(num * pow) / pow;

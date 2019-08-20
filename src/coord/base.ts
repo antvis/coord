@@ -3,12 +3,10 @@
  * @author sima.zhang
  */
 import { mat3, vec3 } from '@antv/matrix-util';
-import { PointType, CoordCfg } from '../interface';
+import { CoordCfg, PointType } from '../interface';
 import { LngLat } from './geo/geometry/lng-lat';
 
-export interface CoordConstructor {
-  new (cfg: any): Coord;
-}
+export type CoordConstructor = new (cfg: any) => Coord;
 
 export default class Coord {
   /**
@@ -18,19 +16,19 @@ export default class Coord {
    */
 
   [dim: string]: any;
-  center!: any;
-  start!: PointType;
-  end!: PointType;
-  width!: number;
-  height!: number;
-  matrix: number[] = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-  isTransposed: boolean = false;
+  public center!: any;
+  public start!: PointType;
+  public end!: PointType;
+  public width!: number;
+  public height!: number;
+  public matrix: number[] = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+  public isTransposed: boolean = false;
 
   constructor(cfg: CoordCfg = {}) {
     Object.assign(this, cfg);
     this.init();
   }
-  init() {
+  public init() {
     const start: PointType = this.start;
     const end: PointType = this.end;
     const center: PointType = {
@@ -42,7 +40,7 @@ export default class Coord {
     this.height = Math.abs(end.y - start.y);
   }
 
-  _swapDim(dim: string) {
+  public _swapDim(dim: string) {
     const dimRange = this[dim];
     if (dimRange) {
       const tmp = dimRange.start;
@@ -51,23 +49,23 @@ export default class Coord {
     }
   }
 
-  getCenter(): PointType | LngLat {
+  public getCenter(): PointType | LngLat {
     return this.center;
   }
 
-  getWidth(): number {
+  public getWidth(): number {
     return this.width;
   }
 
-  getHeight(): number {
+  public getHeight(): number {
     return this.height;
   }
 
-  convertDim(percent: number, dim: string): number {
+  public convertDim(percent: number, dim: string): number {
     const { start, end } = this[dim];
     return start + percent * (end - start);
   }
-  invertDim(value: number, dim: string): number {
+  public invertDim(value: number, dim: string): number {
     const { start, end } = this[dim];
     return (value - start) / (end - start);
   }
@@ -78,7 +76,7 @@ export default class Coord {
    * @param  {Object} point 归一化的坐标点
    * @return {Object}       返回画布坐标
    */
-  convertPoint(point: any): any {
+  public convertPoint(point: any): any {
     return point;
   }
 
@@ -88,7 +86,7 @@ export default class Coord {
    * @param  {Object} PointType 画布坐标点数据
    * @return {Object}       归一化后的数据点
    */
-  invertPoint(point: any): any {
+  public invertPoint(point: any): any {
     return point;
   }
 
@@ -99,7 +97,7 @@ export default class Coord {
    * @param  {Number} tag 默认为 0，可取值 0, 1
    * @return {Array}     返回变换后的三阶向量 [x, y, z]
    */
-  applyMatrix(x: number, y: number, tag: number = 0): number[] {
+  public applyMatrix(x: number, y: number, tag: number = 0): number[] {
     const matrix = this.matrix;
     const vector = [x, y, tag];
     vec3.transformMat3(vector, vector, matrix);
@@ -113,7 +111,7 @@ export default class Coord {
    * @param  {Number} tag 默认为 0，可取值 0, 1
    * @return {Array}     返回矩阵逆变换后的三阶向量 [x, y, z]
    */
-  invertMatrix(x: number, y: number, tag: number = 0): number[] {
+  public invertMatrix(x: number, y: number, tag: number = 0): number[] {
     const matrix = this.matrix;
     const inversedMatrix = mat3.invert([], matrix);
     const vector = [x, y, tag];
@@ -126,7 +124,7 @@ export default class Coord {
    * @param  {Object} point 归一化的坐标点
    * @return {Object}       返回进行矩阵变换后的画布坐标
    */
-  convert(point: PointType): PointType {
+  public convert(point: PointType): PointType {
     const { x, y } = this.convertPoint(point);
     const vector = this.applyMatrix(x, y, 1);
     return {
@@ -140,7 +138,7 @@ export default class Coord {
    * @param  {Object} point 画布坐标
    * @return {Object}       返回归一化的坐标点
    */
-  invert(point: PointType): PointType {
+  public invert(point: PointType): PointType {
     const vector = this.invertMatrix(point.x, point.y, 1);
     return this.invertPoint({
       x: vector[0],
@@ -153,7 +151,7 @@ export default class Coord {
    * @param  {Number} radian 旋转弧度
    * @return {Object}        返回坐标系对象
    */
-  rotate(radian: number) {
+  public rotate(radian: number) {
     const matrix = this.matrix;
     const center = this.center;
     mat3.translate(matrix, matrix, [-center.x, -center.y]);
@@ -167,7 +165,7 @@ export default class Coord {
    * @param  {String} dim 反射维度
    * @return {Object}     返回坐标系对象
    */
-  reflect(dim: string) {
+  public reflect(dim: string) {
     switch (dim) {
       case 'x':
         this._swapDim('x');
@@ -187,7 +185,7 @@ export default class Coord {
    * @param  {Number} s2 y 方向缩放比例
    * @return {Object}    返回坐标系对象
    */
-  scale(s1: number, s2: number) {
+  public scale(s1: number, s2: number) {
     const matrix = this.matrix;
     const center = this.center;
     mat3.translate(matrix, matrix, [-center.x, -center.y]);
@@ -202,7 +200,7 @@ export default class Coord {
    * @param  {Number} y y 方向平移像素
    * @return {Object}   返回坐标系对象
    */
-  translate(x: number, y: number) {
+  public translate(x: number, y: number) {
     const matrix = this.matrix;
     mat3.translate(matrix, matrix, [x, y]);
     return this;
@@ -212,7 +210,7 @@ export default class Coord {
    * 将坐标系 x y 两个轴进行转置
    * @return {Object} 返回坐标系对象
    */
-  transpose() {
+  public transpose() {
     this.isTransposed = !this.isTransposed;
     return this;
   }

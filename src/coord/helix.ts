@@ -3,49 +3,50 @@
  * @author sima.zhang
  */
 
+import { vec2 } from '@antv/matrix-util';
 import { isNumberEqual } from '@antv/util';
-import {vec2 } from '@antv/matrix-util';
+import { CoordCfg, PointRange, PointType } from '../interface';
 import Coord from './base';
-import { PointType, PointRange, CoordCfg } from '../interface';
 export default class Helix extends Coord {
-  type:string = 'helix';
-  isHelix:boolean = true;
-  a:number;
-  b:number;
-  d:number;
-  x:PointRange;
-  y:PointRange;
+  public type: string = 'helix';
+  public isHelix: boolean = true;
+  public a: number;
+  public b: number;
+  public d: number;
+  public x: PointRange;
+  public y: PointRange;
 
-  constructor(cfg:CoordCfg) {
+  constructor(cfg: CoordCfg) {
     super({
-      startAngle:1.25 * Math.PI,
-      endAngle:7.25 * Math.PI,
-      innerRadius:0,
-      ...cfg});
+      startAngle: 1.25 * Math.PI,
+      endAngle: 7.25 * Math.PI,
+      innerRadius: 0,
+      ...cfg,
+    });
     this._init();
   }
 
-  _init() {
-    const width:number = this.width;
-    const height:number = this.height;
-    const radius:number = this.radius;
-    const innerRadius:number = this.innerRadius;
-    const startAngle:number = this.startAngle;
-    const endAngle:number = this.endAngle;
+  public _init() {
+    const width: number = this.width;
+    const height: number = this.height;
+    const radius: number = this.radius;
+    const innerRadius: number = this.innerRadius;
+    const startAngle: number = this.startAngle;
+    const endAngle: number = this.endAngle;
 
-    const index:number = (endAngle - startAngle) / (2 * Math.PI) + 1; // 螺线圈数
-    let maxRadius:number = Math.min(width, height) / 2;
+    const index: number = (endAngle - startAngle) / (2 * Math.PI) + 1; // 螺线圈数
+    let maxRadius: number = Math.min(width, height) / 2;
     if (radius && radius >= 0 && radius <= 1) {
       maxRadius = maxRadius * radius;
     }
 
-    const d:number = Math.floor(maxRadius * (1 - innerRadius) / index);
-    const a:number = d / (Math.PI * 2); // 螺线系数
-    const x:PointRange = {
+    const d: number = Math.floor((maxRadius * (1 - innerRadius)) / index);
+    const a: number = d / (Math.PI * 2); // 螺线系数
+    const x: PointRange = {
       start: startAngle,
       end: endAngle,
     };
-    const y:PointRange = {
+    const y: PointRange = {
       end: innerRadius * maxRadius + d * 0.99,
       start: innerRadius * maxRadius,
     };
@@ -56,7 +57,7 @@ export default class Helix extends Coord {
     this.y = y;
   }
 
-  getCenter():PointType {
+  public getCenter(): PointType {
     return this.center;
   }
 
@@ -65,7 +66,7 @@ export default class Helix extends Coord {
    * @param  {Object} PointType 归一化的点坐标
    * @return {Object}       返回对应的屏幕坐标
    */
-  convertPoint(point:PointType):PointType {
+  public convertPoint(point: PointType): PointType {
     const a = this.a;
     const center = this.center;
     let x;
@@ -93,15 +94,16 @@ export default class Helix extends Coord {
    * @param  {Object} PointType 屏幕坐标
    * @return {Object}       返回对应的归一化后的数据
    */
-  invertPoint(point:PointType):PointType {
-    const center:PointType = this.center;
+  public invertPoint(point: PointType): PointType {
+    const center: PointType = this.center;
     const a = this.a;
     const d = this.d + this.y.start;
-    const v = vec2.subtract([], [ point.x, point.y ], [ center.x, center.y ]);
-    let thi = vec2.angleTo(v, [ 1, 0 ], true);
+    const v = vec2.subtract([], [point.x, point.y], [center.x, center.y]);
+    let thi = vec2.angleTo(v, [1, 0], true);
     let rMin = thi * a; // 坐标与原点的连线在第一圈上的交点，最小r值
 
-    if (vec2.length(v) < rMin) {  // 坐标与原点的连线不可能小于最小r值，但不排除因小数计算产生的略小于rMin的情况
+    if (vec2.length(v) < rMin) {
+      // 坐标与原点的连线不可能小于最小r值，但不排除因小数计算产生的略小于rMin的情况
       rMin = vec2.length(v);
     }
 
@@ -116,7 +118,7 @@ export default class Helix extends Coord {
     x = isNumberEqual(x, 0) ? 0 : x;
     y = isNumberEqual(y, 0) ? 0 : y;
 
-    const rst:PointType = { x:0, y:0 };
+    const rst: PointType = { x: 0, y: 0 };
     rst.x = this.isTransposed ? y : x;
     rst.y = this.isTransposed ? x : y;
     return rst;

@@ -2,15 +2,14 @@
  * @fileOverview the class of Cartesian Coordinate
  * @author sima.zhang
  */
+import { CoordCfg, PointRange, PointType } from '../interface';
 import Coord from './base';
-import { PointType, PointRange, CoordCfg } from '../interface';
 export default class Cartesian extends Coord {
-
-  x!:PointRange;
-  y!:PointRange;
-  type:string = 'cartesian';
-  isRect:boolean = true;
-  constructor(cfg:CoordCfg) {
+  public x!: PointRange;
+  public y!: PointRange;
+  public type: string = 'cartesian';
+  public isRect: boolean = true;
+  constructor(cfg: CoordCfg) {
     super({
       start: {
         x: 0,
@@ -25,9 +24,9 @@ export default class Cartesian extends Coord {
     this._init();
   }
 
-  _init() {
+  public _init() {
     const start = this.start;
-    const end  = this.end;
+    const end = this.end;
     const x = {
       start: start.x,
       end: end.x,
@@ -40,7 +39,7 @@ export default class Cartesian extends Coord {
     this.y = y;
   }
 
-  convertPoint(point:PointType) {
+  public convertPoint(point: PointType) {
     let x;
     let y;
     if (this.isTransposed) {
@@ -56,7 +55,7 @@ export default class Cartesian extends Coord {
     };
   }
 
-  invertPoint(point:PointType) {
+  public invertPoint(point: PointType) {
     const x = this.invertDim(point.x, 'x');
     const y = this.invertDim(point.y, 'y');
 

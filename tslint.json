@@ -1,22 +1,15 @@
 {
-  "extends": "tslint-config-airbnb",
-  "linterOptions": {
-    "exclude": [
-      "**/node_modules/**",
-      "**/.git/**",
-      "**/lib/**",
-      "**/dist/**",
-      "./packages/util/**/*",
-      "./packages/g/**/*",
-      "./packages/torch/**/*",
-      "./packages/istanbul/**/*"
-    ]
-  },
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "jsRules": {},
   "rules": {
-    "max-line-length": [ true, 120 ],
-    "trailing-comma": [ true, { "multiline": "always", "singleline": "never" } ],
-    "array-bracket-spacing": [ false ],
-    "import-name": [ false ],
-    "function-name": [ false ]
-  }
+    "interface-name": false,
+    "variable-name": false,
+    "no-bitwise": false,
+    "only-arrow-functions": false,
+    "object-literal-sort-keys": false,
+    "no-empty": false,
+    "no-console": false
+  },
+  "rulesDirectory": []
 }

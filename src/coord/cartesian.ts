@@ -1,53 +1,42 @@
+import { CoordinateCfg, Point, Range } from '../interface';
+import Coordinate from './base';
+
 /**
- * @fileOverview the class of Cartesian Coordinate
- * @author sima.zhang
+ * 笛卡尔坐标系
+ * https://www.zhihu.com/question/20665303
  */
-import { CoordCfg, PointRange, PointType } from '../interface';
-import Coord from './base';
-export default class Cartesian extends Coord {
-  public x!: PointRange;
-  public y!: PointRange;
-  public type: string = 'cartesian';
+export default class Cartesian extends Coordinate {
   public isRect: boolean = true;
-  constructor(cfg: CoordCfg) {
-    super({
-      start: {
-        x: 0,
-        y: 0,
-      },
-      end: {
-        x: 0,
-        y: 0,
-      },
-      ...cfg,
-    });
-    this._init();
+  public type: string = 'cartesian';
+
+  constructor(cfg: CoordinateCfg) {
+    super(cfg);
+
+    this.initial();
   }
 
-  public _init() {
+  public initial() {
+    super.initial();
+
     const start = this.start;
     const end = this.end;
-    const x = {
+
+    this.x = {
       start: start.x,
       end: end.x,
     };
-    const y = {
+    this.y = {
       start: start.y,
       end: end.y,
     };
-    this.x = x;
-    this.y = y;
   }
 
-  public convertPoint(point: PointType) {
-    let x;
-    let y;
+  public convertPoint(point: Point) {
+    let { x, y } = point;
+
+    // 交换
     if (this.isTransposed) {
-      x = point.y;
-      y = point.x;
-    } else {
-      x = point.x;
-      y = point.y;
+      [x, y] = [y, x];
     }
     return {
       x: this.convertDim(x, 'x'),
@@ -55,20 +44,14 @@ export default class Cartesian extends Coord {
     };
   }
 
-  public invertPoint(point: PointType) {
-    const x = this.invertDim(point.x, 'x');
-    const y = this.invertDim(point.y, 'y');
+  public invertPoint(point: Point) {
+    let x = this.invertDim(point.x, 'x');
+    let y = this.invertDim(point.y, 'y');
 
     if (this.isTransposed) {
-      return {
-        x: y,
-        y: x,
-      };
+      [x, y] = [y, x];
     }
 
-    return {
-      x,
-      y,
-    };
+    return { x, y };
   }
 }

@@ -1,17 +1,15 @@
-import Coord from './coord/base';
+import Coordinate from './coord/base';
 import Cartesian from './coord/cartesian';
-import Geo from './coord/geo';
 import Helix from './coord/helix';
 import Polar from './coord/polar';
-import { getCoord, registerCoord } from './factory';
 
-registerCoord('coord', Coord);
-registerCoord('rect', Cartesian);
-registerCoord('cartesian', Cartesian);
-registerCoord('polar', Polar);
-registerCoord('helix', Helix);
-registerCoord('geo', Geo);
+import { getCoordinate, registerCoordinate } from './factory';
 
-export { getCoord, registerCoord, Coord };
+registerCoordinate('rect', Cartesian);
+registerCoordinate('cartesian', Cartesian);
+registerCoordinate('polar', Polar);
+registerCoordinate('helix', Helix);
 
-export * from './interface';
+export { getCoordinate, registerCoordinate, Coordinate };
+
+export { Point, PolarCfg, CoordinateCfg } from './interface';

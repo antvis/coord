@@ -1,29 +1,24 @@
-import Coord, { CoordConstructor } from './coord/base';
+import { CoordinateCtor } from './coord/base';
 
-interface CoordMapType {
-  [key: string]: any;
-}
-
-// 所有的 Coord map
-const COORDINATE_MAP: CoordMapType = {};
+// 所有的 Coordinate map
+const COORDINATE_MAP: Record<string, CoordinateCtor> = {};
 
 /**
- * 通过类型获得 Coord 类
+ * 通过类型获得 coordinate 类
  * @param type
  */
-const getCoord = (type: string) => {
+export const getCoordinate = (type: string): CoordinateCtor => {
   return COORDINATE_MAP[type.toLowerCase()];
 };
 
-const registerCoord = (type: string, ctor: CoordConstructor): void => {
-  // 注册的时候，需要校验 type 重名，不区分大小写
-  if (getCoord(type)) {
-    throw new Error(`Coordinate type '${type}' existed.`);
-  }
+/**
+ * 注册 coordinate 类
+ * @param type
+ * @param ctor
+ */
+export const registerCoordinate = (type: string, ctor: CoordinateCtor): void => {
   // 存储到 map 中
   COORDINATE_MAP[type.toLowerCase()] = ctor;
 };
-
-export { getCoord, registerCoord, Coord };
 
 export * from './interface';

@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import Polar from '../../src/coord/polar';
 
 describe('Polar', function() {
@@ -55,136 +54,136 @@ describe('Polar', function() {
       y: 0,
     },
     startAngle: Math.PI / 2,
-    endAngle: Math.PI * 3 / 2,
+    endAngle: (Math.PI * 3) / 2,
     radius: -1.5,
   });
 
-  it('construction', function() {
+  test('construction', function() {
     const center = coord.getCenter();
     const center2 = coord2.getCenter();
     const center3 = coord2.getCenter();
-    expect(center.x).to.equal(100);
-    expect(center.y).to.equal(150);
-    expect(coord.radius).to.equal(100);
-    expect(center2.x).to.equal(150);
-    expect(center2.y).to.equal(100);
-    expect(coord2.radius).to.equal(50);
+    expect(center.x).toBe(100);
+    expect(center.y).toBe(150);
+    expect(coord.radius).toBe(100);
+    expect(center2.x).toBe(150);
+    expect(center2.y).toBe(100);
+    expect(coord2.radius).toBe(50);
 
-    expect(center3.x).to.equal(150);
-    expect(center3.y).to.equal(100);
-    expect(coord3.radius).to.equal(1.5);
-    expect(coord4.radius).to.equal(100);
-    expect(coord5.radius).to.equal(100);
+    expect(center3.x).toBe(150);
+    expect(center3.y).toBe(100);
+    expect(coord3.radius).toBe(1.5);
+    expect(coord4.radius).toBe(100);
+    expect(coord5.radius).toBe(100);
   });
 
-  it('convert', function() {
+  test('convert', function() {
     let point = {
       x: 0,
       y: 1,
     };
     point = coord.convert(point);
-    expect(point.x).to.equal(100);
-    expect(point.y).to.equal(50);
+    expect(point.x).toBe(100);
+    expect(point.y).toBe(50);
     point = {
       x: 0.25,
       y: 1,
     };
     point = coord.convert(point);
-    expect(point.x).to.equal(200);
-    expect(point.y).to.equal(150);
+    expect(point.x).toBe(200);
+    expect(point.y).toBe(150);
 
     point = {
       x: 0.5,
       y: 0.5,
     };
     point = coord.convert(point);
-    expect(point.x).to.equal(100);
-    expect(point.y).to.equal(200);
+    expect(point.x).toBe(100);
+    expect(point.y).toBe(200);
   });
 
-  it('invert', function() {
+  test('invert', function() {
     let point = {
       x: 100,
       y: 200,
     };
     point = coord.invert(point);
-    expect(point.x).to.equal(0.5);
-    expect(point.y).to.equal(0.5);
+    expect(point.x).toBe(0.5);
+    expect(point.y).toBe(0.5);
   });
 
-  it('getWidth and getHeight', function() {
-    expect(coord.getWidth()).to.equal(200);
-    expect(coord.getHeight()).to.equal(300);
+  test('getWidth and getHeight', function() {
+    expect(coord.getWidth()).toBe(200);
+    expect(coord.getHeight()).toBe(300);
   });
 
-  it('translate', function() {
+  test('translate', function() {
     let point = {
       x: 0.25,
       y: 1,
     };
     coord.translate(100, 20);
     point = coord.convert(point);
-    expect(point.x).to.equal(300);
-    expect(point.y).to.equal(170);
+    expect(point.x).toBe(300);
+    expect(point.y).toBe(170);
     coord.translate(-100, -20);
   });
 
-  it('rotate', function() {
+  test('rotate', function() {
     let point = {
       x: 0.5,
       y: 0.5,
     };
     coord.rotate(Math.PI / 2);
     point = coord.convert(point);
-    expect(point.x).to.equal(50);
-    expect(point.y).to.equal(150);
+    expect(point.x).toBe(50);
+    expect(point.y).toBe(150);
     coord.rotate(-Math.PI / 2);
   });
 
-  it('scale', function() {
+  test('scale', function() {
     let point = {
       x: 0.5,
       y: 0.5,
     };
     coord.scale(2, 2);
     point = coord.convert(point);
-    expect(point.x).to.equal(100);
-    expect(point.y).to.equal(250);
+    expect(point.x).toBe(100);
+    expect(point.y).toBe(250);
     coord.scale(0.5, 0.5);
   });
 
-  it('reflect x', function() {
+  test('reflect x', function() {
     let point = {
       x: 0.25,
       y: 0.5,
     };
     coord.reflect('x');
     point = coord.convert(point);
-    expect(point.x).to.equal(50);
-    expect(point.y).to.equal(150);
+    expect(point.x).toBe(50);
+    expect(point.y).toBe(150);
     coord.reflect('x');
   });
 
-  it('reflect y', function() {
+  test('reflect y', function() {
     let point = {
       x: 0.75,
       y: 0.5,
     };
     coord.reflect('y');
     point = coord.convert(point);
-    expect(point.x).to.equal(50);
-    expect(point.y).to.equal(150);
+    expect(point.x).toBe(50);
+    expect(point.y).toBe(150);
     coord.reflect('y');
   });
 
-  it('endAngle < startAngle', () => {
-    const coord = new Polar({
+  test('endAngle < startAngle', () => {
+    const c = new Polar({
       start: { x: 80, y: 355 },
       end: { x: 480, y: 20 },
-      startAngle: 1 / 2 * Math.PI,
-      endAngle: -1 / 2 * Math.PI,
+      startAngle: (1 / 2) * Math.PI,
+      endAngle: (-1 / 2) * Math.PI,
     });
-    expect(coord.startAngle).to.equal(1 / 2 * Math.PI);
-    expect(coord.endAngle).to.equal(3 / 2 * Math.PI);
+    expect(c.startAngle).toBe((1 / 2) * Math.PI);
+    expect(c.endAngle).toBe((3 / 2) * Math.PI);
   });
 });

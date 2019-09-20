@@ -7,11 +7,6 @@ export default class Polar extends Coordinate {
   public isPolar: boolean = true;
   public type: string = 'polar';
 
-  public startAngle: number;
-  public endAngle: number;
-  public innerRadius: number;
-  public radius: number;
-
   public circleCenter: Point;
 
   constructor(cfg: PolarCfg) {

@@ -10,12 +10,6 @@ export default class Helix extends Coordinate {
   public isHelix: boolean = true;
   public type: string = 'helix';
 
-  // 属性配置
-  public startAngle: number;
-  public endAngle: number;
-  public innerRadius: number;
-  public radius: number;
-
   // 螺线系数
   private a: number;
   private d: number;

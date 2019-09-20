@@ -10,12 +10,21 @@ export type CoordinateCtor = new (cfg: any) => Coordinate;
 export default abstract class Coordinate {
   // 自身属性
   public type: string = 'coordinate';
+  public isRect: boolean = false;
+  public isHelix: boolean = false;
+  public isPolar: boolean = false;
 
   // 外部属性
   public start: Point;
   public end: Point;
   public matrix: number[];
   public isTransposed: boolean;
+
+  // 极坐标下的属性
+  public startAngle: number;
+  public endAngle: number;
+  public innerRadius: number;
+  public radius: number;
 
   // 计算属性
   public center: Point;
@@ -206,13 +215,13 @@ export default abstract class Coordinate {
    * 将归一化的坐标点数据转换为画布坐标
    * @param point
    */
-  protected abstract convertPoint(point: Point): Point;
+  public abstract convertPoint(point: Point): Point;
 
   /**
    * 画布坐标转换为归一化的坐标点数据
    * @param point
    */
-  protected abstract invertPoint(point: Point): Point;
+  public abstract invertPoint(point: Point): Point;
 
   private _swapDim(dim: string) {
     const dimRange = this[dim];

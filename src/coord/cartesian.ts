@@ -1,4 +1,4 @@
-import { CoordinateCfg, Point, Range } from '../interface';
+import { CoordinateCfg, Point } from '../interface';
 import Coordinate from './base';
 
 /**
@@ -6,8 +6,8 @@ import Coordinate from './base';
  * https://www.zhihu.com/question/20665303
  */
 export default class Cartesian extends Coordinate {
-  public isRect: boolean = true;
-  public type: string = 'cartesian';
+  public readonly isRect: boolean = true;
+  public readonly type: string = 'cartesian';
 
   constructor(cfg: CoordinateCfg) {
     super(cfg);

@@ -4,8 +4,8 @@ import { Point, PolarCfg } from '../interface';
 import Coordinate from './base';
 
 export default class Polar extends Coordinate {
-  public isPolar: boolean = true;
-  public type: string = 'polar';
+  public readonly isPolar: boolean = true;
+  public readonly type: string = 'polar';
 
   public circleCenter: Point;
 

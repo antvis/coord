@@ -7,8 +7,8 @@ import Coordinate from './base';
  * 螺旋坐标系
  */
 export default class Helix extends Coordinate {
-  public isHelix: boolean = true;
-  public type: string = 'helix';
+  public readonly isHelix: boolean = true;
+  public readonly type: string = 'helix';
 
   // 螺线系数
   private a: number;

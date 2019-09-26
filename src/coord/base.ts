@@ -9,10 +9,10 @@ export type CoordinateCtor = new (cfg: any) => Coordinate;
  */
 export default abstract class Coordinate {
   // 自身属性
-  public type: string = 'coordinate';
-  public isRect: boolean = false;
-  public isHelix: boolean = false;
-  public isPolar: boolean = false;
+  public readonly type: string = 'coordinate';
+  public readonly isRect: boolean = false;
+  public readonly isHelix: boolean = false;
+  public readonly isPolar: boolean = false;
 
   // 外部属性
   public start: Point;
@@ -26,13 +26,13 @@ export default abstract class Coordinate {
   public innerRadius: number;
   public radius: number;
 
-  // 计算属性
-  public center: Point;
-  public width: number;
-  public height: number;
-
   public x: Range;
   public y: Range;
+
+  // 计算属性，通过相应的 get 方法获取，所以使用 protected 访问修饰符
+  protected center: Point;
+  protected width: number;
+  protected height: number;
 
   constructor(cfg: CoordinateCfg) {
     const { start, end, matrix = [1, 0, 0, 0, 1, 0, 0, 0, 1], isTransposed = false } = cfg;
@@ -69,6 +69,7 @@ export default abstract class Coordinate {
     const { start, end } = this[dim];
     return start + percent * (end - start);
   }
+
   public invertDim(value: number, dim: string): number {
     const { start, end } = this[dim];
     return (value - start) / (end - start);

@@ -13,7 +13,7 @@ describe('Helix', function() {
   });
 
   test('constructor', function() {
-    const center = coord.center;
+    const center = coord.getCenter();
 
     expect(center.x).toBe(100);
     expect(center.y).toBe(150);

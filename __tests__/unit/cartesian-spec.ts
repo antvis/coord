@@ -14,7 +14,7 @@ describe('Cartesian', function() {
   });
 
   test('construction', function() {
-    expect(coord.center).toEqual({ x: 100, y: 150 });
+    expect(coord.getCenter()).toEqual({ x: 100, y: 150 });
   });
 
   test('convert', function() {

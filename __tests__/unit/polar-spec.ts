@@ -64,16 +64,23 @@ describe('Polar', function() {
     const center3 = coord2.getCenter();
     expect(center.x).toBe(100);
     expect(center.y).toBe(150);
-    expect(coord.radius).toBe(100);
+    // 不应该更改用户传入的属性值
+    expect(coord.radius).toBe(undefined);
+    expect(coord.getRadius()).toBe(100);
     expect(center2.x).toBe(150);
     expect(center2.y).toBe(100);
-    expect(coord2.radius).toBe(50);
+    expect(coord2.getRadius()).toBe(50);
+    expect(coord2.radius).toBe(0.5);
 
     expect(center3.x).toBe(150);
     expect(center3.y).toBe(100);
+
     expect(coord3.radius).toBe(1.5);
-    expect(coord4.radius).toBe(100);
-    expect(coord5.radius).toBe(100);
+    expect(coord3.getRadius()).toBe(1.5);
+    expect(coord4.radius).toBe(-1.5);
+    expect(coord4.getRadius()).toBe(100);
+    expect(coord5.radius).toBe(-1.5);
+    expect(coord5.getRadius()).toBe(100);
   });
 
   test('convert', function() {

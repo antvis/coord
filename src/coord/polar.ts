@@ -9,6 +9,9 @@ export default class Polar extends Coordinate {
 
   public circleCenter: Point;
 
+  // 极坐标的半径值，区别于用户设置的归一化 radius
+  private polarRadius: number;
+
   constructor(cfg: PolarCfg) {
     super(cfg);
 
@@ -54,12 +57,13 @@ export default class Polar extends Coordinate {
       };
     }
 
+    this.polarRadius = this.radius;
     if (!this.radius) {
-      this.radius = maxRadius;
+      this.polarRadius = maxRadius;
     } else if (this.radius > 0 && this.radius <= 1) {
-      this.radius = maxRadius * this.radius;
+      this.polarRadius = maxRadius * this.radius;
     } else if (this.radius <= 0 || this.radius > maxRadius) {
-      this.radius = maxRadius;
+      this.polarRadius = maxRadius;
     }
 
     this.x = {
@@ -68,13 +72,13 @@ export default class Polar extends Coordinate {
     };
 
     this.y = {
-      start: this.innerRadius * this.radius,
-      end: this.radius,
+      start: this.innerRadius * this.polarRadius,
+      end: this.polarRadius,
     };
   }
 
   public getRadius() {
-    return this.radius;
+    return this.polarRadius;
   }
 
   public convertPoint(point: Point): Point {

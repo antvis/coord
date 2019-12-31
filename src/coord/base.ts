@@ -33,6 +33,8 @@ export default abstract class Coordinate {
   protected center: Point;
   protected width: number;
   protected height: number;
+  private isReflectX = false;
+  private isReflectY = false;
 
   constructor(cfg: CoordinateCfg) {
     const { start, end, matrix = [1, 0, 0, 0, 1, 0, 0, 0, 1], isTransposed = false } = cfg;
@@ -66,12 +68,23 @@ export default abstract class Coordinate {
   }
 
   public convertDim(percent: number, dim: string): number {
-    const { start, end } = this[dim];
+    let { start, end } = this[dim];
+
+    // 交换
+    if (this.isReflect(dim)) {
+      [start, end] = [end, start];
+    }
+
     return start + percent * (end - start);
   }
 
   public invertDim(value: number, dim: string): number {
-    const { start, end } = this[dim];
+    let { start, end } = this[dim];
+    // 交换
+    if (this.isReflect(dim)) {
+      [start, end] = [end, start];
+    }
+
     return (value - start) / (end - start);
   }
 
@@ -151,15 +164,10 @@ export default abstract class Coordinate {
    * @return    返回坐标系对象
    */
   public reflect(dim: string) {
-    switch (dim) {
-      case 'x':
-        this._swapDim('x');
-        break;
-      case 'y':
-        this._swapDim('y');
-        break;
-      default:
-        this._swapDim('y');
+    if (dim === 'x') {
+      this.isReflectX = !this.isReflectX;
+    } else {
+      this.isReflectY = !this.isReflectY;
     }
     return this;
   }
@@ -213,6 +221,14 @@ export default abstract class Coordinate {
   }
 
   /**
+   * whether has reflect
+   * @param dim
+   */
+  public isReflect(dim: string): boolean {
+    return dim === 'x' ? this.isReflectX : this.isReflectY;
+  }
+
+  /**
    * 将归一化的坐标点数据转换为画布坐标
    * @param point
    */
@@ -223,13 +239,4 @@ export default abstract class Coordinate {
    * @param point
    */
   public abstract invertPoint(point: Point): Point;
-
-  private _swapDim(dim: string) {
-    const dimRange = this[dim];
-    if (dimRange) {
-      const tmp = dimRange.start;
-      dimRange.start = dimRange.end;
-      dimRange.end = tmp;
-    }
-  }
 }

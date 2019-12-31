@@ -102,7 +102,9 @@ describe('Cartesian', function() {
     coord.reflect('x');
     point = coord.convert(point);
     expect(point).toEqual({ x: 100, y: 90 });
+    expect(coord.isReflect('x')).toBe(true);
     coord.reflect('x');
+    expect(coord.isReflect('x')).toBe(false);
   });
 
   test('reflect y', function() {
@@ -112,8 +114,10 @@ describe('Cartesian', function() {
     };
     coord.reflect('y');
     point = coord.convert(point);
+    expect(coord.isReflect('y')).toBe(true);
     expect(point).toEqual({ x: 60, y: 150 });
     coord.reflect('y');
+    expect(coord.isReflect('y')).toBe(false);
   });
 
   test('trans', function() {

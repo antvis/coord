@@ -35,12 +35,15 @@ export default abstract class Coordinate {
   protected height: number;
   private isReflectX = false;
   private isReflectY = false;
+  // 初始构造时候的 matrix，存储起来用于 reset
+  private originalMatrix: number[];
 
   constructor(cfg: CoordinateCfg) {
     const { start, end, matrix = [1, 0, 0, 0, 1, 0, 0, 0, 1], isTransposed = false } = cfg;
     this.start = start;
     this.end = end;
     this.matrix = matrix;
+    this.originalMatrix = [...matrix]; // 去除引用
     this.isTransposed = isTransposed;
   }
 
@@ -226,6 +229,15 @@ export default abstract class Coordinate {
    */
   public isReflect(dim: string): boolean {
     return dim === 'x' ? this.isReflectX : this.isReflectY;
+  }
+
+  /**
+   * 重置 matrix
+   * @param matrix 如果传入，则使用，否则使用构造函数中传入的默认 matrix
+   */
+  public resetMatrix(matrix?: number[]) {
+    // 去除引用关系
+    this.matrix = matrix ? matrix : [...this.originalMatrix];
   }
 
   /**

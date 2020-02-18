@@ -61,36 +61,53 @@ describe('Cartesian', function() {
   });
 
   test('translate', function() {
-    let point = {
+    const point = {
       x: 0.2,
       y: 0.7,
     };
-    coord.translate(100, 20);
-    point = coord.convert(point);
 
-    expect(point).toEqual({ x: 140, y: 110 });
+    coord.translate(100, 20);
+
+    expect(coord.convert(point)).toEqual({ x: 140, y: 110 });
+    coord.translate(-100, -20);
+
+    // reset matrix, and redo action
+    coord.resetMatrix();
+    coord.translate(100, 20);
+    expect(coord.convert(point)).toEqual({ x: 140, y: 110 });
     coord.translate(-100, -20);
   });
 
   test('rotate', function() {
-    let point = {
+    const matrix = [...coord.matrix];
+    const point = {
       x: 0.5,
       y: 0.7,
     };
     coord.rotate(Math.PI / 2);
-    point = coord.convert(point);
-    expect(point).toEqual({ x: 160, y: 150 });
+    expect(coord.convert(point)).toEqual({ x: 160, y: 150 });
+    coord.rotate(-Math.PI / 2);
+
+    // reset matrix, and redo action
+    coord.resetMatrix(matrix);
+    coord.rotate(Math.PI / 2);
+    expect(coord.convert(point)).toEqual({ x: 160, y: 150 });
     coord.rotate(-Math.PI / 2);
   });
 
   test('scale', function() {
-    let point = {
+    const point = {
       x: 0.5,
       y: 0.7,
     };
     coord.scale(2, 2);
-    point = coord.convert(point);
-    expect(point).toEqual({ x: 100, y: 30 });
+    expect(coord.convert(point)).toEqual({x: 100, y: 30});
+    coord.scale(0.5, 0.5);
+
+    // reset matrix, and redo action
+    coord.resetMatrix(coord.matrix);
+    coord.scale(2, 2);
+    expect(coord.convert(point)).toEqual({x: 100, y: 30});
     coord.scale(0.5, 0.5);
   });
 

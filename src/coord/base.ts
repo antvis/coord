@@ -1,13 +1,13 @@
 import { mat3, vec3 } from '@antv/matrix-util';
 import * as _ from '@antv/util';
-import { CoordinateCfg, Point, Range } from '../interface';
+import { CoordinateCfg, ICoordinate, Point, Range } from '../interface';
 
 export type CoordinateCtor = new (cfg: any) => Coordinate;
 
 /**
  * Coordinate Base Class
  */
-export default abstract class Coordinate {
+export default abstract class Coordinate implements ICoordinate {
   // 自身属性
   public readonly type: string = 'coordinate';
   public readonly isRect: boolean = false;
@@ -221,6 +221,10 @@ export default abstract class Coordinate {
 
   public getHeight(): number {
     return this.height;
+  }
+
+  public getRadius(): number {
+    return this.radius;
   }
 
   /**

@@ -148,6 +148,11 @@ describe('Cartesian', function() {
     const vector = coord.invertMatrix(0, 1);
     expect(isNumberEqual(vector[0], 1)).toBe(true);
     expect(isNumberEqual(vector[1], 0)).toBe(true);
+
+    coord.matrix = [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN];
+    expect(() => {
+      coord.invertMatrix(0, 1);
+    }).not.toThrow();;
   });
 
   test('update', function() {

@@ -116,7 +116,10 @@ export default abstract class Coordinate implements ICoordinate {
     const matrix = this.matrix;
     const inverted = mat3.invert([], matrix);
     const vector = [x, y, tag];
-    vec3.transformMat3(vector, vector, inverted);
+    if (inverted) {
+      // 如果为空则不进行矩阵变化，防止报错
+      vec3.transformMat3(vector, vector, inverted);
+    }
     return vector;
   }
 

@@ -150,9 +150,7 @@ describe('Cartesian', function() {
     expect(isNumberEqual(vector[1], 0)).toBe(true);
 
     coord.matrix = [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN];
-    expect(() => {
-      coord.invertMatrix(0, 1);
-    }).not.toThrow();;
+    expect(coord.invertMatrix(0, 1)).toEqual([0, 1, 0]);
   });
 
   test('update', function() {

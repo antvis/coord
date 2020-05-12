@@ -88,7 +88,7 @@ describe('Cartesian', function() {
     expect(coord.convert(point)).toEqual({ x: 160, y: 150 });
     coord.rotate(-Math.PI / 2);
 
-    // reset matrix, and redo action
+    // @ts-ignore reset matrix, and redo action
     coord.resetMatrix(matrix);
     coord.rotate(Math.PI / 2);
     expect(coord.convert(point)).toEqual({ x: 160, y: 150 });

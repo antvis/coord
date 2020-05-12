@@ -1,7 +1,7 @@
-import { mat3, vec2, vec3 } from '@antv/matrix-util';
+import { ext, vec2, vec3 } from '@antv/matrix-util';
 import { isNumberEqual } from '@antv/util';
 import { Point, PolarCfg } from '../interface';
-import Coordinate from './base';
+import Coordinate, { Matrix3, Vector2, Vector3 } from './base';
 
 export default class Polar extends Coordinate {
   public readonly isPolar: boolean = true;
@@ -101,15 +101,15 @@ export default class Polar extends Coordinate {
 
   public invertPoint(point: Point): Point {
     const center = this.getCenter();
-    const vPoint = [point.x - center.x, point.y - center.y];
+    const vPoint: Vector2 = [point.x - center.x, point.y - center.y];
 
-    const m = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-    mat3.rotate(m, m, this.startAngle);
+    const m: Matrix3 = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+    ext.leftRotate(m, m, this.startAngle);
 
-    let vStart = [1, 0, 0];
-    vec3.transformMat3(vStart, vStart, m);
-    vStart = [vStart[0], vStart[1]];
-    let angle = vec2.angleTo(vStart, vPoint, this.endAngle < this.startAngle);
+    const vStart3: Vector3 = [1, 0, 0];
+    vec3.transformMat3(vStart3, vStart3, m);
+    const vStart2: Vector2 = [vStart3[0], vStart3[1]];
+    let angle = ext.angleTo(vStart2, vPoint, this.endAngle < this.startAngle);
     if (isNumberEqual(angle, Math.PI * 2)) {
       angle = 0;
     }

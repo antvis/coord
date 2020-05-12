@@ -1,7 +1,7 @@
-import { vec2 } from '@antv/matrix-util';
+import { ext, vec2 } from '@antv/matrix-util';
 import { isNumberEqual } from '@antv/util';
 import { Point, PolarCfg } from '../interface';
-import Coordinate from './base';
+import Coordinate, { Vector2 } from './base';
 
 /**
  * 螺旋坐标系
@@ -79,9 +79,9 @@ export default class Helix extends Coordinate {
   public invertPoint(point: Point): Point {
     const d = this.d + this.y.start;
 
-    const v = vec2.subtract([], [point.x, point.y], [this.center.x, this.center.y]);
+    const v = vec2.subtract([0, 0], [point.x, point.y], [this.center.x, this.center.y]) as Vector2;
 
-    let thi = vec2.angleTo(v, [1, 0], true);
+    let thi = ext.angleTo(v, [1, 0], true);
     let rMin = thi * this.a; // 坐标与原点的连线在第一圈上的交点，最小r值
 
     if (vec2.length(v) < rMin) {

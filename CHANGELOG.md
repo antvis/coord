@@ -1,3 +1,9 @@
+#### 0.3.0 (2020-05-12)
+
+##### Chores
+
+- **deps:** 升级 matrix-util ([8b53c642](https://github.com/antvis/coord/commit/8b53c6426def5384593c3ef46c0e1b5530f61777))
+
 #### 0.2.2 (2019-09-26)
 
 ##### Chores

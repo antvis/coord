@@ -1,8 +1,11 @@
-import { mat3, vec3 } from '@antv/matrix-util';
-import * as _ from '@antv/util';
+import { ext, mat3, vec3 } from '@antv/matrix-util';
+import { assign } from '@antv/util';
 import { CoordinateCfg, ICoordinate, Point, Range } from '../interface';
 
 export type CoordinateCtor = new (cfg: any) => Coordinate;
+export type Vector2 = [number, number];
+export type Vector3 = [number, number, number];
+export type Matrix3 = [number, number, number, number, number, number, number, number, number];
 
 /**
  * Coordinate Base Class
@@ -17,7 +20,7 @@ export default abstract class Coordinate implements ICoordinate {
   // 外部属性
   public start: Point;
   public end: Point;
-  public matrix: number[];
+  public matrix: Matrix3;
   public isTransposed: boolean;
 
   // 极坐标下的属性
@@ -36,14 +39,14 @@ export default abstract class Coordinate implements ICoordinate {
   private isReflectX = false;
   private isReflectY = false;
   // 初始构造时候的 matrix，存储起来用于 reset
-  private originalMatrix: number[];
+  private originalMatrix: Matrix3;
 
   constructor(cfg: CoordinateCfg) {
     const { start, end, matrix = [1, 0, 0, 0, 1, 0, 0, 0, 1], isTransposed = false } = cfg;
     this.start = start;
     this.end = end;
-    this.matrix = matrix;
-    this.originalMatrix = [...matrix]; // 去除引用
+    this.matrix = matrix as Matrix3;
+    this.originalMatrix = [...matrix] as Matrix3; // 去除引用
     this.isTransposed = isTransposed;
   }
 
@@ -66,7 +69,7 @@ export default abstract class Coordinate implements ICoordinate {
    * @param cfg
    */
   public update(cfg: CoordinateCfg) {
-    _.assign(this, cfg);
+    assign(this, cfg);
     this.initial();
   }
 
@@ -100,7 +103,7 @@ export default abstract class Coordinate implements ICoordinate {
    */
   public applyMatrix(x: number, y: number, tag: number = 0): number[] {
     const matrix = this.matrix;
-    const vector = [x, y, tag];
+    const vector: Vector3 = [x, y, tag];
     vec3.transformMat3(vector, vector, matrix);
     return vector;
   }
@@ -114,8 +117,8 @@ export default abstract class Coordinate implements ICoordinate {
    */
   public invertMatrix(x: number, y: number, tag: number = 0): number[] {
     const matrix = this.matrix;
-    const inverted = mat3.invert([], matrix);
-    const vector = [x, y, tag];
+    const inverted = mat3.invert([0, 0, 0, 0, 0, 0, 0, 0, 0], matrix);
+    const vector: Vector3 = [x, y, tag];
     if (inverted) {
       // 如果为空则不进行矩阵变化，防止报错
       vec3.transformMat3(vector, vector, inverted);
@@ -158,9 +161,9 @@ export default abstract class Coordinate implements ICoordinate {
   public rotate(radian: number) {
     const matrix = this.matrix;
     const center = this.center;
-    mat3.translate(matrix, matrix, [-center.x, -center.y]);
-    mat3.rotate(matrix, matrix, radian);
-    mat3.translate(matrix, matrix, [center.x, center.y]);
+    ext.leftTranslate(matrix, matrix, [-center.x, -center.y]);
+    ext.leftRotate(matrix, matrix, radian);
+    ext.leftTranslate(matrix, matrix, [center.x, center.y]);
     return this;
   }
 
@@ -187,9 +190,9 @@ export default abstract class Coordinate implements ICoordinate {
   public scale(s1: number, s2: number) {
     const matrix = this.matrix;
     const center = this.center;
-    mat3.translate(matrix, matrix, [-center.x, -center.y]);
-    mat3.scale(matrix, matrix, [s1, s2]);
-    mat3.translate(matrix, matrix, [center.x, center.y]);
+    ext.leftTranslate(matrix, matrix, [-center.x, -center.y]);
+    ext.leftScale(matrix, matrix, [s1, s2]);
+    ext.leftTranslate(matrix, matrix, [center.x, center.y]);
     return this;
   }
 
@@ -201,7 +204,7 @@ export default abstract class Coordinate implements ICoordinate {
    */
   public translate(x: number, y: number) {
     const matrix = this.matrix;
-    mat3.translate(matrix, matrix, [x, y]);
+    ext.leftTranslate(matrix, matrix, [x, y]);
     return this;
   }
 
@@ -242,9 +245,9 @@ export default abstract class Coordinate implements ICoordinate {
    * 重置 matrix
    * @param matrix 如果传入，则使用，否则使用构造函数中传入的默认 matrix
    */
-  public resetMatrix(matrix?: number[]) {
+  public resetMatrix(matrix?: Matrix3) {
     // 去除引用关系
-    this.matrix = matrix ? matrix : [...this.originalMatrix];
+    this.matrix = matrix ? matrix : [...this.originalMatrix] as Matrix3;
   }
 
   /**

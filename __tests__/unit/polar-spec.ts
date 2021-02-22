@@ -1,6 +1,6 @@
 import Polar from '../../src/coord/polar';
 
-describe('Polar', function() {
+describe('Polar', function () {
   const coord = new Polar({
     start: {
       x: 0,
@@ -58,7 +58,7 @@ describe('Polar', function() {
     radius: -1.5,
   });
 
-  test('construction', function() {
+  test('construction', function () {
     const center = coord.getCenter();
     const center2 = coord2.getCenter();
     const center3 = coord2.getCenter();
@@ -83,7 +83,7 @@ describe('Polar', function() {
     expect(coord5.getRadius()).toBe(100);
   });
 
-  test('convert', function() {
+  test('convert', function () {
     let point = {
       x: 0,
       y: 1,
@@ -108,7 +108,7 @@ describe('Polar', function() {
     expect(point.y).toBe(200);
   });
 
-  test('invert', function() {
+  test('invert', function () {
     let point = {
       x: 100,
       y: 200,
@@ -118,12 +118,12 @@ describe('Polar', function() {
     expect(point.y).toBe(0.5);
   });
 
-  test('getWidth and getHeight', function() {
+  test('getWidth and getHeight', function () {
     expect(coord.getWidth()).toBe(200);
     expect(coord.getHeight()).toBe(300);
   });
 
-  test('translate', function() {
+  test('translate', function () {
     let point = {
       x: 0.25,
       y: 1,
@@ -135,7 +135,7 @@ describe('Polar', function() {
     coord.translate(-100, -20);
   });
 
-  test('rotate', function() {
+  test('rotate', function () {
     let point = {
       x: 0.5,
       y: 0.5,
@@ -147,7 +147,7 @@ describe('Polar', function() {
     coord.rotate(-Math.PI / 2);
   });
 
-  test('scale', function() {
+  test('scale', function () {
     let point = {
       x: 0.5,
       y: 0.5,
@@ -159,7 +159,7 @@ describe('Polar', function() {
     coord.scale(0.5, 0.5);
   });
 
-  test('reflect x', function() {
+  test('reflect x', function () {
     let point = {
       x: 0.25,
       y: 0.5,
@@ -171,7 +171,7 @@ describe('Polar', function() {
     coord.reflect('x');
   });
 
-  test('reflect y', function() {
+  test('reflect y', function () {
     let point = {
       x: 0.75,
       y: 0.5,

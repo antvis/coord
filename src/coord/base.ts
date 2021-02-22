@@ -247,7 +247,7 @@ export default abstract class Coordinate implements ICoordinate {
    */
   public resetMatrix(matrix?: Matrix3) {
     // 去除引用关系
-    this.matrix = matrix ? matrix : [...this.originalMatrix] as Matrix3;
+    this.matrix = matrix ? matrix : ([...this.originalMatrix] as Matrix3);
   }
 
   /**

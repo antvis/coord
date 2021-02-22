@@ -1,6 +1,6 @@
 import Helix from '../../src/coord/helix';
 
-describe('Helix', function() {
+describe('Helix', function () {
   const coord = new Helix({
     start: {
       x: 0,
@@ -12,7 +12,7 @@ describe('Helix', function() {
     },
   });
 
-  test('constructor', function() {
+  test('constructor', function () {
     const center = coord.getCenter();
 
     expect(center.x).toBe(100);
@@ -23,7 +23,7 @@ describe('Helix', function() {
     expect(coord.endAngle).toBe(7.25 * Math.PI);
   });
 
-  test('convert & invert', function() {
+  test('convert & invert', function () {
     let point2 = {
       x: 0,
       y: 0,

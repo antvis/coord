@@ -1,7 +1,7 @@
 import { isNumberEqual } from '@antv/util';
 import Cartesian from '../../src/coord/cartesian';
 
-describe('Cartesian', function() {
+describe('Cartesian', function () {
   const coord = new Cartesian({
     start: {
       x: 0,
@@ -13,11 +13,11 @@ describe('Cartesian', function() {
     },
   });
 
-  test('construction', function() {
+  test('construction', function () {
     expect(coord.getCenter()).toEqual({ x: 100, y: 150 });
   });
 
-  test('convert', function() {
+  test('convert', function () {
     let point = {
       x: 0.2,
       y: 0.7,
@@ -37,7 +37,7 @@ describe('Cartesian', function() {
     expect(point2).toEqual({ x: 40, y: 90 });
   });
 
-  test('invert', function() {
+  test('invert', function () {
     let point = {
       x: 40,
       y: 90,
@@ -55,12 +55,12 @@ describe('Cartesian', function() {
     expect(point2).toEqual({ x: 0.7, y: 0.2 });
   });
 
-  test('getWidth and getHeight', function() {
+  test('getWidth and getHeight', function () {
     expect(coord.getWidth()).toEqual(200);
     expect(coord.getHeight()).toEqual(300);
   });
 
-  test('translate', function() {
+  test('translate', function () {
     const point = {
       x: 0.2,
       y: 0.7,
@@ -78,7 +78,7 @@ describe('Cartesian', function() {
     coord.translate(-100, -20);
   });
 
-  test('rotate', function() {
+  test('rotate', function () {
     const matrix = [...coord.matrix];
     const point = {
       x: 0.5,
@@ -95,23 +95,23 @@ describe('Cartesian', function() {
     coord.rotate(-Math.PI / 2);
   });
 
-  test('scale', function() {
+  test('scale', function () {
     const point = {
       x: 0.5,
       y: 0.7,
     };
     coord.scale(2, 2);
-    expect(coord.convert(point)).toEqual({x: 100, y: 30});
+    expect(coord.convert(point)).toEqual({ x: 100, y: 30 });
     coord.scale(0.5, 0.5);
 
     // reset matrix, and redo action
     coord.resetMatrix(coord.matrix);
     coord.scale(2, 2);
-    expect(coord.convert(point)).toEqual({x: 100, y: 30});
+    expect(coord.convert(point)).toEqual({ x: 100, y: 30 });
     coord.scale(0.5, 0.5);
   });
 
-  test('reflect x', function() {
+  test('reflect x', function () {
     let point = {
       x: 0.5,
       y: 0.7,
@@ -124,7 +124,7 @@ describe('Cartesian', function() {
     expect(coord.isReflect('x')).toBe(false);
   });
 
-  test('reflect y', function() {
+  test('reflect y', function () {
     let point = {
       x: 0.3,
       y: 0.5,
@@ -137,14 +137,14 @@ describe('Cartesian', function() {
     expect(coord.isReflect('y')).toBe(false);
   });
 
-  test('trans', function() {
+  test('trans', function () {
     coord.rotate(Math.PI / 2);
     const vector = coord.applyMatrix(1, 0);
     expect(isNumberEqual(vector[0], 0)).toBe(true);
     expect(isNumberEqual(vector[1], 1)).toBe(true);
   });
 
-  test('reverse', function() {
+  test('reverse', function () {
     const vector = coord.invertMatrix(0, 1);
     expect(isNumberEqual(vector[0], 1)).toBe(true);
     expect(isNumberEqual(vector[1], 0)).toBe(true);
@@ -153,7 +153,7 @@ describe('Cartesian', function() {
     expect(coord.invertMatrix(0, 1)).toEqual([0, 1, 0]);
   });
 
-  test('update', function() {
+  test('update', function () {
     expect(coord.getCenter()).toEqual({ x: 100, y: 150 });
 
     coord.update({

@@ -1,4 +1,4 @@
-export const trunc = function(v: number): number {
+export const trunc = function (v: number): number {
   return v > 0 ? Math.floor(v) : Math.ceil(v);
 };
 

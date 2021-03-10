@@ -103,7 +103,7 @@ export default class Polar extends Coordinate {
     const center = this.getCenter();
     const vPoint: Vector2 = [point.x - center.x, point.y - center.y];
 
-    let {startAngle, endAngle} = this;
+    let { startAngle, endAngle } = this;
     if (this.isReflect('x')) {
       [startAngle, endAngle] = [endAngle, startAngle];
     }

@@ -103,20 +103,25 @@ export default class Polar extends Coordinate {
     const center = this.getCenter();
     const vPoint: Vector2 = [point.x - center.x, point.y - center.y];
 
+    let {startAngle, endAngle} = this;
+    if (this.isReflect('x')) {
+      [startAngle, endAngle] = [endAngle, startAngle];
+    }
+
     const m: Matrix3 = [1, 0, 0, 0, 1, 0, 0, 0, 1];
-    ext.leftRotate(m, m, this.startAngle);
+    ext.leftRotate(m, m, startAngle);
 
     const vStart3: Vector3 = [1, 0, 0];
     vec3.transformMat3(vStart3, vStart3, m);
     const vStart2: Vector2 = [vStart3[0], vStart3[1]];
-    let angle = ext.angleTo(vStart2, vPoint, this.endAngle < this.startAngle);
+    let angle = ext.angleTo(vStart2, vPoint, endAngle < startAngle);
     if (isNumberEqual(angle, Math.PI * 2)) {
       angle = 0;
     }
     const radius = vec2.length(vPoint);
 
-    let xPercent = angle / (this.endAngle - this.startAngle);
-    xPercent = this.endAngle - this.startAngle > 0 ? xPercent : -xPercent;
+    let xPercent = angle / (endAngle - startAngle);
+    xPercent = endAngle - startAngle > 0 ? xPercent : -xPercent;
 
     const yPercent = this.invertDim(radius, 'y');
     const rst = { x: 0, y: 0 };

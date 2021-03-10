@@ -168,6 +168,10 @@ describe('Polar', function () {
     point = coord.convert(point);
     expect(point.x).toBe(50);
     expect(point.y).toBe(150);
+    point = coord.invert(point);
+    // 0.24999999999999997
+    expect(point.x).toBeCloseTo(0.25);
+    expect(point.y).toBe(0.5);
     coord.reflect('x');
   });
 
@@ -180,6 +184,9 @@ describe('Polar', function () {
     point = coord.convert(point);
     expect(point.x).toBe(50);
     expect(point.y).toBe(150);
+    point = coord.invert(point);
+    expect(point.x).toBe(0.75);
+    expect(point.y).toBe(0.5);
     coord.reflect('y');
   });
 

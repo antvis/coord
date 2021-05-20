@@ -29,7 +29,21 @@ $ npm install @antv/coord
 ## 🔨 Getting Started
 
 ```ts
-// TO DO
+import { Coordinate, Options } from '@antv/coord';
+
+const optons: Options = {
+  x: 0,
+  y: 0,
+  width: 500,
+  height: 500,
+  transforms: [['scale', 10, 10]]
+}
+
+const coord = new Coordinate(options);
+coord.transform('translate', 10, 10);
+coord.map([0.5, 0.5]);
+coord.getSize();
+coord.getCenter();
 ```
 
 ## 📎 Links

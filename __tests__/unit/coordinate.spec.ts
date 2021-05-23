@@ -10,7 +10,7 @@ describe('Coordinate', () => {
       y: 0,
       width: 300,
       height: 150,
-      transforms: [],
+      transformations: [],
     });
   });
 
@@ -20,13 +20,12 @@ describe('Coordinate', () => {
       y: 20,
       width: 200,
       height: 100,
-      transforms: [['scale', 10, 10]],
+      transformations: [['scale', 10, 10]],
     };
     const coord = new Coordinate(options);
 
     // @ts-ignore
     expect(coord.options).toEqual(options);
-
     // @ts-ignore
     expect(coord.options).not.toBe(options);
   });
@@ -55,10 +54,10 @@ describe('Coordinate', () => {
 
   test('coord.clear() clears transforms', () => {
     const coord = new Coordinate({
-      transforms: [['scale', 10, 10]],
+      transformations: [['scale', 10, 10]],
     });
 
     coord.clear();
-    expect(coord.getOptions().transforms).toEqual([]);
+    expect(coord.getOptions().transformations).toEqual([]);
   });
 });

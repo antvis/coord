@@ -10,7 +10,7 @@ export class Coordinate {
       y: 0,
       width: 300,
       height: 150,
-      transforms: [],
+      transformations: [],
     };
     this.update(options);
   }
@@ -29,7 +29,7 @@ export class Coordinate {
 
   public clear() {
     this.update({
-      transforms: [],
+      transformations: [],
     });
   }
 }

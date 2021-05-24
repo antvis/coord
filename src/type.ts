@@ -9,3 +9,7 @@ export type Options = {
   height?: number;
   transformations?: Transformation[];
 };
+
+export type Vector = number[];
+
+export type Transform = (vector: Vector | Vector[]) => Vector | Vector[];

@@ -96,6 +96,7 @@
     "url": "https://github.com/antvis/template/issues"
   },
   "dependencies": {
+    "@antv/matrix-util": "^3.0.4",
     "@antv/util": "^2.0.13"
   }
 }

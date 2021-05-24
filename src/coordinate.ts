@@ -1,5 +1,5 @@
 import { deepMix } from '@antv/util';
-import { Options } from './type';
+import { Options, Transformation } from './type';
 
 export class Coordinate {
   private options: Options;
@@ -31,5 +31,13 @@ export class Coordinate {
     this.update({
       transformations: [],
     });
+  }
+
+  public transform(...args: Transformation) {
+    const { transformations } = this.options;
+    this.update({
+      transformations: [...transformations, [...args]],
+    });
+    return this;
   }
 }

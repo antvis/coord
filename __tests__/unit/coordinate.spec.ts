@@ -43,6 +43,17 @@ describe('Coordinate', () => {
     expect(coord.getOptions().x).toBe(10);
   });
 
+  test('coord.transform() updates options.transformations', () => {
+    const coord = new Coordinate();
+    coord.transform('scale', 10, 10);
+    expect(coord.getOptions().transformations).toEqual([['scale', 10, 10]]);
+  });
+
+  test('coord.transform() returns current coord', () => {
+    const coord = new Coordinate();
+    expect(coord.transform('scale', 10, 10)).toBe(coord);
+  });
+
   test('coord.clone() returns same but independent coordinate', () => {
     const coord1 = new Coordinate();
     const coord2 = coord1.clone();

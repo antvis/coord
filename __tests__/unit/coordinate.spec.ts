@@ -7,6 +7,26 @@ describe('Coordinate', () => {
     expect(coord.getOptions()).toBe(coord.options);
   });
 
+  test('coord.getSize() returns current size', () => {
+    const coord = new Coordinate({
+      width: 100,
+      height: 50,
+    });
+
+    expect(coord.getSize()).toEqual([100, 50]);
+  });
+
+  test('coord.getCenter() returns current center', () => {
+    const coord = new Coordinate({
+      width: 100,
+      height: 50,
+      x: 10,
+      y: 20,
+    });
+
+    expect(coord.getCenter()).toEqual([55, 35]);
+  });
+
   test('new Coordinate() has expected defaults', () => {
     const coord = new Coordinate();
 
@@ -17,6 +37,9 @@ describe('Coordinate', () => {
       height: 150,
       transformations: [],
     });
+
+    expect(coord.getSize()).toEqual([300, 150]);
+    expect(coord.getCenter()).toEqual([150, 75]);
   });
 
   test('new Coordinate(options) override defaults', () => {

@@ -1,1 +1,2 @@
-export const version = '0.1.0';
+export type { Options } from './type';
+export { Coordinate } from './coordinate';

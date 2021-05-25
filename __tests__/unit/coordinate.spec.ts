@@ -1,11 +1,16 @@
 import { Coordinate, Options } from '../../src';
 
 describe('Coordinate', () => {
+  test('coord.getOptions() returns the reference for options', () => {
+    const coord = new Coordinate();
+    // @ts-ignore
+    expect(coord.getOptions()).toBe(coord.options);
+  });
+
   test('new Coordinate() has expected defaults', () => {
     const coord = new Coordinate();
 
-    // @ts-ignore
-    expect(coord.options).toEqual({
+    expect(coord.getOptions()).toEqual({
       x: 0,
       y: 0,
       width: 300,
@@ -36,12 +41,6 @@ describe('Coordinate', () => {
       x: 10,
     });
     expect(coord.getOptions().x).toBe(10);
-  });
-
-  test('coord.getOptions() returns the reference for options', () => {
-    const coord = new Coordinate();
-    // @ts-ignore
-    expect(coord.getOptions()).toBe(coord.options);
   });
 
   test('coord.clone() returns same but independent coordinate', () => {

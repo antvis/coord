@@ -97,6 +97,7 @@
   },
   "dependencies": {
     "@antv/matrix-util": "^3.0.4",
+    "@antv/scale": "^0.4.0",
     "@antv/util": "^2.0.13"
   }
 }

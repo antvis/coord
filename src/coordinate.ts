@@ -1,7 +1,23 @@
 import { deepMix } from '@antv/util';
-import { Options, Transformation } from './type';
+import { mat3, vec3 } from '@antv/matrix-util';
+import { Options, Transformation, Transform, Vector, Transformer, Matrix3, Vector3, Vector2, Vectors } from './type';
+import { compose } from './utils';
+import { cartesian, translate } from './transforms';
+
+function isVectors(vector: Vectors): vector is Vector2[] {
+  return vector[0] instanceof Array;
+}
+
+function isMatrix(transformer: any): transformer is Matrix3 {
+  return transformer instanceof Float32Array || transformer instanceof Array;
+}
 
 export class Coordinate {
+  static transformers = {
+    cartesian,
+    translate,
+  };
+
   private options: Options;
 
   private x: number;
@@ -11,6 +27,10 @@ export class Coordinate {
   private width: number;
 
   private height: number;
+
+  private output: Transform;
+
+  private input: Transform;
 
   constructor(options?: Partial<Options>) {
     this.options = {
@@ -59,11 +79,82 @@ export class Coordinate {
     return this;
   }
 
+  public map(vectors: Vectors) {
+    return this.output(vectors);
+  }
+
+  public invert(vectors: Vectors) {
+    return this.input(vectors);
+  }
+
   private recoordinate() {
+    this.resetDimension();
+    this.output = this.compose();
+    this.input = this.compose(true);
+  }
+
+  private resetDimension() {
     const { width, height, x, y } = this.options;
     this.width = width;
     this.height = height;
     this.x = x;
     this.y = y;
+  }
+
+  private compose(invert = false) {
+    const transformations = invert ? [...this.options.transformations].reverse() : this.options.transformations;
+    const getter = invert ? (d: Transformer) => d.untransform : (d: Transformer) => d.transform;
+    const matrixes = [];
+    const transforms = [];
+
+    for (const t of transformations) {
+      const [name, ...args] = t;
+      const createTransformer = Coordinate.transformers[name];
+      if (createTransformer) {
+        const { x, y, width, height } = this;
+        const transformer = createTransformer([...args], x, y, width, height);
+        if (isMatrix(transformer)) {
+          matrixes.push(transformer);
+        } else {
+          if (matrixes.length) {
+            const transform = this.multiple(this.createMatrixTransform(matrixes, invert));
+            transforms.push(transform);
+            matrixes.splice(0, matrixes.length);
+          }
+          const transform = this.multiple(getter(transformer));
+          transforms.push(transform);
+        }
+      }
+    }
+
+    if (matrixes.length) {
+      const transform = this.multiple(this.createMatrixTransform(matrixes, invert));
+      transforms.push(transform);
+    }
+
+    return compose<Vectors>(...transforms);
+  }
+
+  private createMatrixTransform(matrixes: Matrix3[], invert: boolean): Transform {
+    const matrix = mat3.create();
+    matrixes.forEach((m) => mat3.mul(matrix, matrix, m));
+    if (invert) {
+      mat3.invert(matrix, mat3.clone(matrix));
+    }
+    return (vector: Vector) => {
+      const vector3: Vector3 = [vector[0], vector[1], 1];
+      vec3.transformMat3(vector3, vector3, matrix);
+      return [vector3[0], vector3[1]];
+    };
+  }
+
+  private multiple(transform: Transform) {
+    return (vectors: Vectors) => {
+      if (isVectors(vectors)) {
+        return vectors.map((v) => transform(v));
+      } else {
+        return transform(vectors);
+      }
+    };
   }
 }

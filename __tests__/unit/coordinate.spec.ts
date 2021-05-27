@@ -7,7 +7,7 @@ describe('Coordinate', () => {
     expect(coord.getOptions()).toBe(coord.options);
   });
 
-  test('coord.getSize() returns current size of the bounding rect', () => {
+  test('coord.getSize() returns current size of the bounding box', () => {
     const coord = new Coordinate({
       width: 100,
       height: 50,
@@ -16,7 +16,7 @@ describe('Coordinate', () => {
     expect(coord.getSize()).toEqual([100, 50]);
   });
 
-  test('coord.getCenter() returns current center of the bounding rect', () => {
+  test('coord.getCenter() returns current center of the bounding box', () => {
     const coord = new Coordinate({
       width: 100,
       height: 50,
@@ -52,10 +52,8 @@ describe('Coordinate', () => {
     };
     const coord = new Coordinate(options);
 
-    // @ts-ignore
-    expect(coord.options).toEqual(options);
-    // @ts-ignore
-    expect(coord.options).not.toBe(options);
+    expect(coord.getOptions()).toEqual(options);
+    expect(coord.getOptions()).not.toBe(options);
   });
 
   test('coord.update() updates options', () => {

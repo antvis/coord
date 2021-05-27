@@ -20,14 +20,6 @@ export class Coordinate {
 
   private options: Options;
 
-  private x: number;
-
-  private y: number;
-
-  private width: number;
-
-  private height: number;
-
   private output: Transform;
 
   private input: Transform;
@@ -63,11 +55,12 @@ export class Coordinate {
   }
 
   public getSize() {
-    return [this.width, this.height];
+    const { width, height } = this.options;
+    return [width, height];
   }
 
   public getCenter() {
-    const { x, y, width, height } = this;
+    const { x, y, width, height } = this.options;
     return [(x + width) / 2, (y + height) / 2];
   }
 
@@ -88,17 +81,8 @@ export class Coordinate {
   }
 
   private recoordinate() {
-    this.resetDimension();
     this.output = this.compose();
     this.input = this.compose(true);
-  }
-
-  private resetDimension() {
-    const { width, height, x, y } = this.options;
-    this.width = width;
-    this.height = height;
-    this.x = x;
-    this.y = y;
   }
 
   private compose(invert = false) {
@@ -111,7 +95,7 @@ export class Coordinate {
       const [name, ...args] = t;
       const createTransformer = Coordinate.transformers[name];
       if (createTransformer) {
-        const { x, y, width, height } = this;
+        const { x, y, width, height } = this.options;
         const transformer = createTransformer([...args], x, y, width, height);
         if (isMatrix(transformer)) {
           matrixes.push(transformer);

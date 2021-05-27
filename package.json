@@ -70,12 +70,12 @@
   "limit-size": [
     {
       "path": "dist/template.min.js",
-      "limit": "1.5 Kb",
+      "limit": "5 Kb",
       "gzip": true
     },
     {
       "path": "dist/template.min.js",
-      "limit": "3 Kb"
+      "limit": "20 Kb"
     }
   ],
   "husky": {

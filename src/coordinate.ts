@@ -91,8 +91,7 @@ export class Coordinate {
     const matrixes = [];
     const transforms = [];
 
-    for (const t of transformations) {
-      const [name, ...args] = t;
+    for (const [name, ...args] of transformations) {
       const createTransformer = Coordinate.transformers[name];
       if (createTransformer) {
         const { x, y, width, height } = this.options;

@@ -1,4 +1,4 @@
-import { Coordinate, Options, Vector2 } from '../../src';
+import { Coordinate, Options, Vector2, Transformation } from '../../src';
 
 describe('Coordinate', () => {
   test('coord.getOptions() returns the reference for options', () => {
@@ -43,12 +43,13 @@ describe('Coordinate', () => {
   });
 
   test('new Coordinate(options) override defaults', () => {
+    const translate: Transformation = ['translate', 10, 10];
     const options: Options = {
       x: 10,
       y: 20,
       width: 200,
       height: 100,
-      transformations: [['translate', 10, 10]],
+      transformations: [translate],
     };
     const coord = new Coordinate(options);
 

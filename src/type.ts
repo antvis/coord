@@ -1,9 +1,12 @@
 import { vec3, mat3 } from '@antv/matrix-util';
 
+export type TransformCallback = (x: number, y: number, width: number, height: number) => Transformer;
+
 type Translate = ['translate', number, number];
 type Cartesian = ['cartesian', number, number, number, number];
+type Custom = ['custom', TransformCallback];
 
-export type Transformation = Translate | Cartesian;
+export type Transformation = Translate | Cartesian | Custom;
 
 export type Options = {
   x?: number;
@@ -22,12 +25,12 @@ export type Matrix3 = mat3;
 export type Transform = (vector: Vector2) => Vector2;
 
 export type Transformer = {
-  transform: Transform;
-  untransform: Transform;
+  transform?: Transform;
+  untransform?: Transform;
 };
 
 export type CreateTransformer = (
-  params: number[],
+  params: number[] | [TransformCallback],
   x: number,
   y: number,
   width: number,

@@ -12,7 +12,7 @@ import { CreateTransformer } from '../type';
  * @returns transformer
  */
 export const translate: CreateTransformer = (params, x, y, width, height) => {
-  const [tx, ty] = params;
+  const [tx, ty] = params as number[];
   const matrix = mat3.create();
   return mat3.fromTranslation(matrix, [tx, ty]);
 };

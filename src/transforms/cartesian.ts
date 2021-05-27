@@ -11,7 +11,7 @@ import { Vector2, CreateTransformer } from '../type';
  * @returns transformer
  */
 export const cartesian: CreateTransformer = (params, x, y, width, height) => {
-  const [x0, x1, y0, y1] = params;
+  const [x0, x1, y0, y1] = params as number[];
   const sx = new Linear({
     range: [x + width * x0, x + width * x1],
   });

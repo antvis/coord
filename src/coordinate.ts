@@ -2,7 +2,7 @@ import { deepMix, identity } from '@antv/util';
 import { mat3, vec3 } from '@antv/matrix-util';
 import { Options, Transformation, Transform, Transformer, Matrix3, Vector3, Vector2 } from './type';
 import { compose } from './utils';
-import { cartesian, translate, custom } from './transforms';
+import { cartesian, translate, custom, matrix } from './transforms';
 
 function isMatrix(transformer: any): transformer is Matrix3 {
   return transformer instanceof Float32Array || transformer instanceof Array;
@@ -19,6 +19,7 @@ export class Coordinate {
     cartesian,
     translate,
     custom,
+    matrix,
   };
 
   /**

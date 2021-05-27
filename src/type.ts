@@ -5,8 +5,9 @@ export type TransformCallback = (x: number, y: number, width: number, height: nu
 type Translate = ['translate', number, number];
 type Cartesian = ['cartesian', number, number, number, number];
 type Custom = ['custom', TransformCallback];
+type Matrix = ['matrix', Matrix3];
 
-export type Transformation = Translate | Cartesian | Custom;
+export type Transformation = Translate | Cartesian | Custom | Matrix;
 
 export type Options = {
   x?: number;
@@ -30,7 +31,7 @@ export type Transformer = {
 };
 
 export type CreateTransformer = (
-  params: number[] | [TransformCallback],
+  params: number[] | [TransformCallback] | [Matrix3],
   x: number,
   y: number,
   width: number,

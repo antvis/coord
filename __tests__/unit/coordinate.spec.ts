@@ -1,4 +1,4 @@
-import { Coordinate, Options, Vectors, Vector2 } from '../../src';
+import { Coordinate, Options, Vector2 } from '../../src';
 
 describe('Coordinate', () => {
   test('coord.getOptions() returns the reference for options', () => {
@@ -114,23 +114,6 @@ describe('Coordinate', () => {
     coord.transform('translate', 40, 5);
     expect(coord.map([0, 0])).toEqual([80, 35]);
     expect(coord.invert([80, 35])).toEqual([0, 0]);
-  });
-
-  test('coord.map() and coord.invert() maps an array of vectors', () => {
-    const coord = new Coordinate({
-      transformations: [['cartesian', 0, 1, 0, 1]],
-    });
-    const from: Vectors = [
-      [0, 0],
-      [1, 1],
-    ];
-    const to: Vectors = [
-      [0, 0],
-      [300, 150],
-    ];
-
-    expect(coord.map(from)).toEqual(to);
-    expect(coord.invert(to)).toEqual(from);
   });
 
   test('coord.map() and coord.invert() ignores unknown transformation', () => {

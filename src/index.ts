@@ -1,2 +1,2 @@
-export type { Options, Vector2, Vectors } from './type';
+export type { Options, Vector2 } from './type';
 export { Coordinate } from './coordinate';

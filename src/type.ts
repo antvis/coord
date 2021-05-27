@@ -13,17 +13,13 @@ export type Options = {
   transformations?: Transformation[];
 };
 
-export type Vector = number[];
-
 export type Vector2 = [number, number];
 
 export type Vector3 = vec3;
 
 export type Matrix3 = mat3;
 
-export type Vectors = Vector | Vector2[];
-
-export type Transform = (vectors: Vectors) => Vectors;
+export type Transform = (vector: Vector2) => Vector2;
 
 export type Transformer = {
   transform: Transform;

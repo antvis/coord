@@ -9,8 +9,9 @@ type Matrix = ['matrix', Matrix3];
 type Polar = ['polar', number, number, number, number];
 type PolarTheta = ['polar.theta', number, number, number, number];
 type PolarRho = ['polar.rho', number, number, number, number];
+type Transpose = ['transpose'];
 
-export type Transformation = Translate | Cartesian | Custom | Matrix | Polar | PolarTheta | PolarRho;
+export type Transformation = Translate | Cartesian | Custom | Matrix | Polar | PolarTheta | PolarRho | Transpose;
 
 export type Options = {
   x?: number;

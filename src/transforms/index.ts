@@ -3,3 +3,4 @@ export { cartesian } from './cartesian';
 export { custom } from './custom';
 export { matrix } from './matrix';
 export { polar, polarRho, polarTheta } from './polar';
+export { transpose } from './transpose';

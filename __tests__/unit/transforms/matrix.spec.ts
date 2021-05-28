@@ -1,7 +1,7 @@
 import { Coordinate } from '../../../src';
 
 describe('Matrix', () => {
-  test('Matrix() can use custom matrix', () => {
+  test('matrix() can use custom matrix', () => {
     const coord = new Coordinate({
       transformations: [['cartesian', 0, 1, 0, 1]],
     });

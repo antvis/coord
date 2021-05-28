@@ -6,8 +6,11 @@ type Translate = ['translate', number, number];
 type Cartesian = ['cartesian', number, number, number, number];
 type Custom = ['custom', TransformCallback];
 type Matrix = ['matrix', Matrix3];
+type Polar = ['polar', number, number, number, number];
+type PolarTheta = ['polar.theta', number, number, number, number];
+type PolarRho = ['polar.rho', number, number, number, number];
 
-export type Transformation = Translate | Cartesian | Custom | Matrix;
+export type Transformation = Translate | Cartesian | Custom | Matrix | Polar | PolarTheta | PolarRho;
 
 export type Options = {
   x?: number;

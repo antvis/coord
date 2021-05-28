@@ -1,7 +1,7 @@
 import { Coordinate } from '../../../src';
 
 describe('Custom', () => {
-  test('Custom() can custom transform and untransform', () => {
+  test('custom() can custom transform and untransform', () => {
     const coord = new Coordinate();
 
     coord.transform('custom', (x, y, width, height) => {
@@ -25,7 +25,7 @@ describe('Custom', () => {
     expect(coord.invert([150, 75])).toEqual([0.5, 0.5]);
   });
 
-  test('Custom() can only custom transform and set untransform to identity', () => {
+  test('custom() can only custom transform and set untransform to identity', () => {
     const coord = new Coordinate();
 
     coord.transform('custom', (x, y, width, height) => {
@@ -41,7 +41,7 @@ describe('Custom', () => {
     expect(coord.invert([150, 75])).toEqual([150, 75]);
   });
 
-  test('Custom() can only custom untransform and set transform to identity', () => {
+  test('custom() can only custom untransform and set transform to identity', () => {
     const coord = new Coordinate();
 
     coord.transform('custom', (x, y, width, height) => {

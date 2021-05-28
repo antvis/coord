@@ -6,3 +6,4 @@ export { polar, polarRho, polarTheta } from './polar';
 export { transpose } from './transpose';
 export { scale } from './scale';
 export { reflect } from './reflect';
+export { rotate } from './rotate';

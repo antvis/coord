@@ -13,6 +13,7 @@ import {
   transpose,
   scale,
   reflect,
+  rotate,
 } from './transforms';
 
 function isMatrix(transformer: any): transformer is Matrix3 {
@@ -37,6 +38,7 @@ export class Coordinate {
     transpose,
     scale,
     reflect,
+    rotate,
   };
 
   /**

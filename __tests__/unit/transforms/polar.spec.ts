@@ -93,6 +93,9 @@ describe('Polar', () => {
 
     expect(coord1.map([0.5, 1])).toEqual(coord2.map([0.5, 0.5]));
     expect(coord1.map([0, 1])).toEqual(coord2.map([0, 0.6]));
+
+    const v = coord2.map([0.5, 0.5]);
+    expect(coord2.invert(v)).toEqual([0.5, 1]);
   });
 
   test('polar.rho() fixes angle to 1', () => {
@@ -116,5 +119,10 @@ describe('Polar', () => {
 
     expect(coord1.map([1, 0.5])).toEqual(coord2.map([0.5, 0.5]));
     expect(coord1.map([1, 0.6])).toEqual(coord2.map([0, 0.6]));
+
+    const v = coord2.map([0.5, 0.5]);
+    const [v1, v2] = coord2.invert(v);
+    expect(v1).toBeCloseTo(0); // 角度 0 和 1 其实是一样的
+    expect(v2).toBeCloseTo(0.5);
   });
 });

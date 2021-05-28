@@ -1,7 +1,7 @@
 import { Coordinate } from '../../../src';
 
 describe('Translate', () => {
-  test('translate() apple translate transformation for vector2', () => {
+  test('translate() applies translate transformation for vector2', () => {
     const coord = new Coordinate();
     coord.transform('translate', 0.1, 0.2);
     const [v1, v2] = coord.map([0, 0]);

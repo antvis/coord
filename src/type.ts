@@ -11,6 +11,7 @@ type PolarTheta = ['polar.theta', number, number, number, number];
 type PolarRho = ['polar.rho', number, number, number, number];
 type Transpose = ['transpose'];
 type Scale = ['scale', number, number];
+type Reflect = ['reflect', -1 | 1, -1 | 1];
 
 export type Transformation =
   | Translate
@@ -21,7 +22,8 @@ export type Transformation =
   | PolarTheta
   | PolarRho
   | Transpose
-  | Scale;
+  | Scale
+  | Reflect;
 
 export type Options = {
   x?: number;

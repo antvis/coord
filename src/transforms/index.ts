@@ -7,3 +7,4 @@ export { transpose } from './transpose';
 export { scale } from './scale';
 export { reflect } from './reflect';
 export { rotate } from './rotate';
+export { helix } from './helix';

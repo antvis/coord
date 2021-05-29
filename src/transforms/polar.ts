@@ -13,9 +13,9 @@ import { Vector2, CreateTransformer, Transformer } from '../type';
  * @returns transformer
  */
 export const polar: CreateTransformer = (params, x, y, width, height) => {
-  const [startAngle, endAngle, innerRadius, OuterRadius] = params as number[];
+  const [startAngle, endAngle, innerRadius, outerRadius] = params as number[];
   const radius = new Linear({
-    range: [innerRadius, OuterRadius],
+    range: [innerRadius, outerRadius],
   });
   const angle = new Linear({
     range: [startAngle, endAngle],

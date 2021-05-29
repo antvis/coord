@@ -13,6 +13,7 @@ type Transpose = ['transpose'];
 type Scale = ['scale', number, number];
 type Reflect = ['reflect', -1 | 1, -1 | 1];
 type Rotate = ['rotate', number];
+type Helix = ['helix', number, number, number, number];
 
 export type Transformation =
   | Translate
@@ -25,7 +26,8 @@ export type Transformation =
   | Transpose
   | Scale
   | Reflect
-  | Rotate;
+  | Rotate
+  | Helix;
 
 export type Options = {
   x?: number;

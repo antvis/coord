@@ -17,7 +17,7 @@ describe('Rotate', () => {
   test('rotate() can be applied before cartesian transformation', () => {
     const coord = new Coordinate();
     coord.transform('rotate', Math.PI / 3);
-    coord.transform('cartesian', 0, 1, 0, 1);
+    coord.transform('cartesian');
 
     let [v1, v2] = coord.map([0.8, 0]);
     expect(v1).toBeCloseTo(120);

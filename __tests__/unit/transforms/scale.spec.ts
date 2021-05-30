@@ -13,7 +13,7 @@ describe('scale', () => {
 
   test('scale() can be applied after cartesian transformation', () => {
     const coord = new Coordinate();
-    coord.transform('cartesian', 0, 1, 0, 1);
+    coord.transform('cartesian');
     coord.transform('scale', 2, 4);
 
     expect(coord.map([0.1, 0.2])).toEqual([60, 120]);
@@ -25,7 +25,7 @@ describe('scale', () => {
   test('scale() can be applied before cartesian transformation', () => {
     const coord = new Coordinate();
     coord.transform('scale', 2, 4);
-    coord.transform('cartesian', 0, 1, 0, 1);
+    coord.transform('cartesian');
 
     expect(coord.map([0.1, 0.2])).toEqual([60, 120]);
     expect(coord.map([-0.1, -0.2])).toEqual([-60, -120]);

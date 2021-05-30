@@ -12,7 +12,7 @@ describe('Translate', () => {
   test('translate() can be applied before cartesian transformation', () => {
     const coord = new Coordinate();
     coord.transform('translate', 0.1, 0.1);
-    coord.transform('cartesian', 0, 1, 0, 1);
+    coord.transform('cartesian');
     const [v1, v2] = coord.map([0, 0]);
     expect(v1).toBeCloseTo(30);
     expect(v2).toBeCloseTo(15);
@@ -20,7 +20,7 @@ describe('Translate', () => {
 
   test('translate() can be applied after cartesian transformation', () => {
     const coord = new Coordinate();
-    coord.transform('cartesian', 0, 1, 0, 1);
+    coord.transform('cartesian');
     coord.transform('translate', 10, 20);
     expect(coord.map([0, 0])).toEqual([10, 20]);
     expect(coord.invert([10, 20])).toEqual([0, 0]);

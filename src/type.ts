@@ -3,7 +3,7 @@ import { vec3, mat3 } from '@antv/matrix-util';
 export type TransformCallback = (x: number, y: number, width: number, height: number) => Transformer;
 
 type Translate = ['translate', number, number];
-type Cartesian = ['cartesian', number, number, number, number];
+type Cartesian = ['cartesian'];
 type Custom = ['custom', TransformCallback];
 type Matrix = ['matrix', Matrix3];
 type Polar = ['polar', number, number, number, number];

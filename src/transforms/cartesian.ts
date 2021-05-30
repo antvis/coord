@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Linear } from '@antv/scale';
 import { Vector2, CreateTransformer } from '../type';
 
 /**
  * Maps normalized value to the bounding box of coordinate.
- * @param params [x0, x1, y0, y1]
+ * @param params []
  * @param x x of the the bounding box of coordinate
  * @param y y of the the bounding box of coordinate
  * @param width width of the the bounding box of coordinate
@@ -11,12 +12,11 @@ import { Vector2, CreateTransformer } from '../type';
  * @returns transformer
  */
 export const cartesian: CreateTransformer = (params, x, y, width, height) => {
-  const [x0, x1, y0, y1] = params as number[];
   const sx = new Linear({
-    range: [x + width * x0, x + width * x1],
+    range: [x, x + width],
   });
   const sy = new Linear({
-    range: [y + height * y0, y + height * y1],
+    range: [y, y + height],
   });
   return {
     transform(vector: Vector2) {

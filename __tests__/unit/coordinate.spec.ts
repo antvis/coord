@@ -87,7 +87,7 @@ describe('Coordinate', () => {
 
   test('coord.map() and coord.invert() composes built-in function transformation', () => {
     const coord = new Coordinate({
-      transformations: [['cartesian', 0, 1, 0, 1]],
+      transformations: [['cartesian']],
     });
     const v1: Vector2 = [0, 0];
     const v2: Vector2 = [0, 0];
@@ -109,7 +109,7 @@ describe('Coordinate', () => {
   test('coord.map() and coord.invert() composes mixed function and matrix transformation', () => {
     const coord = new Coordinate();
 
-    coord.transform('cartesian', 0, 1, 0, 1);
+    coord.transform('cartesian');
     coord.transform('translate', 10, 20);
     coord.transform('translate', 30, 10);
     coord.transform('translate', 40, 5);

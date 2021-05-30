@@ -4,7 +4,7 @@ describe('Polar', () => {
   test('polar() moves the origin to the center of the bounding box', () => {
     const coord = new Coordinate();
     coord.transform('polar', 0, 1, 0, 1);
-    coord.transform('cartesian', 0, 1, 0, 1);
+    coord.transform('cartesian');
     expect(coord.map([0, 0])).toEqual([150, 75]);
   });
 
@@ -12,10 +12,7 @@ describe('Polar', () => {
     const coord = new Coordinate({
       width: 200,
       height: 300,
-      transformations: [
-        ['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1],
-        ['cartesian', 0, 1, 0, 1],
-      ],
+      transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1], ['cartesian']],
     });
 
     let [v1, v2] = coord.map([0, 1]);
@@ -36,10 +33,7 @@ describe('Polar', () => {
     const coord = new Coordinate({
       width: 300,
       height: 200,
-      transformations: [
-        ['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1],
-        ['cartesian', 0, 1, 0, 1],
-      ],
+      transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1], ['cartesian']],
     });
 
     expect(coord.map([0, 1])).toEqual([150, 0]);
@@ -60,10 +54,7 @@ describe('Polar', () => {
     const coord = new Coordinate({
       width: 200,
       height: 200,
-      transformations: [
-        ['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8],
-        ['cartesian', 0, 1, 0, 1],
-      ],
+      transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
     });
 
     expect(coord.map([0, 0])).toEqual([100, 80]);
@@ -76,19 +67,13 @@ describe('Polar', () => {
     const coord1 = new Coordinate({
       width: 200,
       height: 200,
-      transformations: [
-        ['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8],
-        ['cartesian', 0, 1, 0, 1],
-      ],
+      transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
     });
 
     const coord2 = new Coordinate({
       width: 200,
       height: 200,
-      transformations: [
-        ['polar.theta', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8],
-        ['cartesian', 0, 1, 0, 1],
-      ],
+      transformations: [['polar.theta', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
     });
 
     expect(coord1.map([0.5, 1])).toEqual(coord2.map([0.5, 0.5]));
@@ -102,19 +87,13 @@ describe('Polar', () => {
     const coord1 = new Coordinate({
       width: 200,
       height: 200,
-      transformations: [
-        ['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8],
-        ['cartesian', 0, 1, 0, 1],
-      ],
+      transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
     });
 
     const coord2 = new Coordinate({
       width: 200,
       height: 200,
-      transformations: [
-        ['polar.rho', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8],
-        ['cartesian', 0, 1, 0, 1],
-      ],
+      transformations: [['polar.rho', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
     });
 
     expect(coord1.map([1, 0.5])).toEqual(coord2.map([0.5, 0.5]));

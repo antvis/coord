@@ -14,7 +14,7 @@ describe('Parallel', () => {
   test('parallel() can applied before cartesian() and translate() ', () => {
     const coord = new Coordinate();
     coord.transform('parallel', 0, 1, 0, 1);
-    coord.transform('cartesian', 0, 1, 0, 1);
+    coord.transform('cartesian');
     coord.transform('translate', 10, 5);
 
     expect(coord.map([0.5, 0.3, 0.2, 0.4])).toEqual([10, 80, 85, 50, 160, 35, 235, 65]);

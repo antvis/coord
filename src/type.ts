@@ -16,6 +16,7 @@ type ReflectX = ['reflect.x'];
 type ReflectY = ['reflect.y'];
 type Rotate = ['rotate', number];
 type Helix = ['helix', number, number, number, number];
+type Parallel = ['parallel', number, number, number, number];
 
 export type Transformation =
   | Translate
@@ -31,7 +32,8 @@ export type Transformation =
   | ReflectX
   | ReflectY
   | Rotate
-  | Helix;
+  | Helix
+  | Parallel;
 
 export type Options = {
   x?: number;
@@ -45,9 +47,11 @@ export type Vector2 = [number, number];
 
 export type Vector3 = vec3;
 
+export type Vector = number[];
+
 export type Matrix3 = mat3;
 
-export type Transform = (vector: Vector2) => Vector2;
+export type Transform = (vector: Vector2 | Vector) => Vector2 | Vector;
 
 export type Transformer = {
   transform?: Transform;

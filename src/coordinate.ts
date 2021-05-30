@@ -1,6 +1,6 @@
 import { deepMix, identity } from '@antv/util';
 import { mat3, vec3 } from '@antv/matrix-util';
-import { Options, Transformation, Transform, Transformer, Matrix3, Vector3, Vector2 } from './type';
+import { Options, Transformation, Transform, Transformer, Matrix3, Vector3, Vector2, Vector } from './type';
 import { compose } from './utils';
 import {
   cartesian,
@@ -17,10 +17,26 @@ import {
   reflectY,
   rotate,
   helix,
+  parallel,
 } from './transforms';
 
 function isMatrix(transformer: any): transformer is Matrix3 {
   return transformer instanceof Float32Array || transformer instanceof Array;
+}
+
+// 对普通的变换函数进行扩展
+// 对于长度大于2的向量，两两为一个点的 x 和 y 坐标
+// 依次变换后合成新的向量返回
+function extend(transform: Transform) {
+  return (vector: Vector) => {
+    const v = [];
+    for (let i = 0; i < vector.length; i += 2) {
+      const from = [vector[i], vector[i + 1]];
+      const to = transform(from);
+      v.push(...to);
+    }
+    return v;
+  };
 }
 
 export class Coordinate {
@@ -45,6 +61,7 @@ export class Coordinate {
     'reflect.y': reflectY,
     rotate,
     helix,
+    parallel,
   };
 
   /**
@@ -132,7 +149,7 @@ export class Coordinate {
    * @param vector original vector2
    * @returns transformed vector2
    */
-  public map(vector: Vector2) {
+  public map(vector: Vector2 | Vector) {
     return this.output(vector);
   }
 
@@ -141,7 +158,7 @@ export class Coordinate {
    * @param vector transformed vector2
    * @param vector original vector2
    */
-  public invert(vector: Vector2) {
+  public invert(vector: Vector2 | Vector) {
     return this.input(vector);
   }
 
@@ -158,6 +175,7 @@ export class Coordinate {
     const getter = invert ? (d: Transformer) => d.untransform : (d: Transformer) => d.transform;
     const matrixes = [];
     const transforms = [];
+    const add = (transform: Transform, extended = true) => transforms.push(extended ? extend(transform) : transform);
 
     for (const [name, ...args] of transformations) {
       const createTransformer = this.transformers[name];
@@ -171,11 +189,11 @@ export class Coordinate {
           // 如果当前变换是函数变换，并且之前有没有合成的矩阵变换，那么现将之前的矩阵变换合成
           if (matrixes.length) {
             const transform = this.createMatrixTransform(matrixes, invert);
-            transforms.push(transform);
+            add(transform);
             matrixes.splice(0, matrixes.length);
           }
           const transform = getter(transformer) || identity;
-          transforms.push(transform);
+          add(transform, name !== 'parallel'); // 对于非平行坐标系的变换需要扩展
         }
       }
     }
@@ -183,10 +201,10 @@ export class Coordinate {
     // 合成剩下的矩阵变换
     if (matrixes.length) {
       const transform = this.createMatrixTransform(matrixes, invert);
-      transforms.push(transform);
+      add(transform);
     }
 
-    return compose<Vector2>(...transforms);
+    return compose<Vector2 | Vector>(...transforms);
   }
 
   // 将连续的矩阵的运算合成一个变换函数

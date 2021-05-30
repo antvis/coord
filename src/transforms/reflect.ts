@@ -6,6 +6,24 @@ import { scale } from './scale';
  * @param args same as scale
  * @returns transformer
  */
-export const reflect: CreateTransformer = (...args) => {
-  return scale(...args);
+export const reflect: CreateTransformer = (params, ...args) => {
+  return scale([-1, -1], ...args);
+};
+
+/**
+ * Apply reflect transformation for current vector.
+ * @param args same as scale
+ * @returns transformer
+ */
+export const reflectX: CreateTransformer = (params, ...args) => {
+  return scale([-1, 1], ...args);
+};
+
+/**
+ * Apply reflect transformation for current vector.
+ * @param args same as scale
+ * @returns transformer
+ */
+export const reflectY: CreateTransformer = (params, ...args) => {
+  return scale([1, -1], ...args);
 };

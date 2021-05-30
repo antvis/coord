@@ -11,7 +11,9 @@ type PolarTheta = ['polar.theta', number, number, number, number];
 type PolarRho = ['polar.rho', number, number, number, number];
 type Transpose = ['transpose'];
 type Scale = ['scale', number, number];
-type Reflect = ['reflect', -1 | 1, -1 | 1];
+type Reflect = ['reflect'];
+type ReflectX = ['reflect.x'];
+type ReflectY = ['reflect.y'];
 type Rotate = ['rotate', number];
 type Helix = ['helix', number, number, number, number];
 
@@ -26,6 +28,8 @@ export type Transformation =
   | Transpose
   | Scale
   | Reflect
+  | ReflectX
+  | ReflectY
   | Rotate
   | Helix;
 

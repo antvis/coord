@@ -5,6 +5,6 @@ export { matrix } from './matrix';
 export { polar, polarRho, polarTheta } from './polar';
 export { transpose } from './transpose';
 export { scale } from './scale';
-export { reflect } from './reflect';
+export { reflect, reflectX, reflectY } from './reflect';
 export { rotate } from './rotate';
 export { helix } from './helix';

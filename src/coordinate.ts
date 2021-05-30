@@ -13,6 +13,8 @@ import {
   transpose,
   scale,
   reflect,
+  reflectX,
+  reflectY,
   rotate,
   helix,
 } from './transforms';
@@ -39,6 +41,8 @@ export class Coordinate {
     transpose,
     scale,
     reflect,
+    'reflect.x': reflectX,
+    'reflect.y': reflectY,
     rotate,
     helix,
   };

@@ -8,7 +8,7 @@ describe('scale', () => {
     expect(coord.map([0.1, 0.2])).toEqual([0.2, 0.8]);
     expect(coord.map([-0.1, -0.2])).toEqual([-0.2, -0.8]);
     expect(coord.invert([0.2, 0.8])).toEqual([0.1, 0.2]);
-    expect(coord.map([-0.2, -0.8])).toEqual([-0.1, -0.2]);
+    expect(coord.invert([-0.2, -0.8])).toEqual([-0.1, -0.2]);
   });
 
   test('scale() can be applied after cartesian transformation', () => {
@@ -18,8 +18,8 @@ describe('scale', () => {
 
     expect(coord.map([0.1, 0.2])).toEqual([60, 120]);
     expect(coord.map([-0.1, -0.2])).toEqual([-60, -120]);
-    expect(coord.map([60, 120])).toEqual([0.1, 0.2]);
-    expect(coord.map([-60, -120])).toEqual([-0.1, -0.2]);
+    expect(coord.invert([60, 120])).toEqual([0.1, 0.2]);
+    expect(coord.invert([-60, -120])).toEqual([-0.1, -0.2]);
   });
 
   test('scale() can be applied before cartesian transformation', () => {

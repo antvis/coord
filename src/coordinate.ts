@@ -1,7 +1,7 @@
 import { deepMix, identity } from '@antv/util';
 import { mat3, vec3 } from '@antv/matrix-util';
 import { Options, Transformation, Transform, Transformer, Matrix3, Vector3, Vector2, Vector } from './type';
-import { compose } from './utils';
+import { compose, isMatrix, extend } from './utils';
 import {
   cartesian,
   translate,
@@ -19,26 +19,6 @@ import {
   helix,
   parallel,
 } from './transforms';
-
-function isMatrix(transformer: any): transformer is Matrix3 {
-  return transformer instanceof Float32Array || transformer instanceof Array;
-}
-
-// 对普通的变换函数进行扩展
-// 对于长度大于2的向量，两两为一个点的 x 和 y 坐标
-// 依次变换后合成新的向量返回
-function extend(transform: Transform) {
-  return (vector: Vector) => {
-    const v = [];
-    for (let i = 0; i < vector.length; i += 2) {
-      const from = [vector[i], vector[i + 1]];
-      const to = transform(from);
-      v.push(...to);
-    }
-    return v;
-  };
-}
-
 export class Coordinate {
   private options: Options;
 

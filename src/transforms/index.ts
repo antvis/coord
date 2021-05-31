@@ -10,3 +10,4 @@ export { rotate } from './rotate';
 export { helix } from './helix';
 export { parallel } from './parallel';
 export { shearX, shearY } from './shear';
+export { fisheye, fisheyeX, fisheyeY, fisheyeCircular } from './fisheye';

@@ -20,6 +20,10 @@ import {
   rotate,
   helix,
   parallel,
+  fisheye,
+  fisheyeX,
+  fisheyeY,
+  fisheyeCircular,
 } from './transforms';
 
 export class Coordinate {
@@ -51,6 +55,10 @@ export class Coordinate {
     rotate,
     helix,
     parallel,
+    fisheye,
+    'fisheye.x': fisheyeX,
+    'fisheye.y': fisheyeY,
+    'fisheye.circular': fisheyeCircular,
   };
 
   /**

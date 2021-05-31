@@ -5,8 +5,8 @@ import typescript from 'rollup-plugin-typescript';
 module.exports = [{
   input: 'src/index.ts',
   output: {
-    file: 'dist/template.min.js',
-    name: 'tplv',
+    file: 'dist/coordinate.min.js',
+    name: 'Coordinate',
     format: 'umd',
     sourcemap: false,
   },

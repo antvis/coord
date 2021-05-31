@@ -1,11 +1,11 @@
 {
-  "name": "@antv/template",
-  "version": "0.1.0",
-  "description": "Template repo for AntV",
+  "name": "@antv/coord",
+  "version": "0.4.0",
+  "description": "Toolkit for mapping elements of sets into geometric objects.",
   "license": "MIT",
   "main": "lib/index.js",
   "module": "esm/index.js",
-  "browser": "dist/template.min.js",
+  "browser": "dist/coordinate.min.js",
   "types": "lib/index.d.ts",
   "files": [
     "src",
@@ -28,9 +28,11 @@
     "prepublishOnly": "npm run ci",
     "prepare": "husky install"
   },
-  "keywords": [
-    "template"
-  ],
+  "dependencies": {
+    "@antv/matrix-util": "^3.0.4",
+    "@antv/scale": "^0.4.0",
+    "@antv/util": "^2.0.13"
+  },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@types/jest": "^26.0.20",
@@ -69,13 +71,13 @@
   },
   "limit-size": [
     {
-      "path": "dist/template.min.js",
-      "limit": "1.5 Kb",
+      "path": "dist/coordinate.min.js",
+      "limit": "5 Kb",
       "gzip": true
     },
     {
-      "path": "dist/template.min.js",
-      "limit": "3 Kb"
+      "path": "dist/coordinate.min.js",
+      "limit": "20 Kb"
     }
   ],
   "husky": {
@@ -90,12 +92,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/antvis/template"
+    "url": "https://github.com/antvis/coord"
   },
   "bugs": {
-    "url": "https://github.com/antvis/template/issues"
+    "url": "https://github.com/antvis/coord/issues"
   },
-  "dependencies": {
-    "@antv/util": "^2.0.13"
-  }
+  "keywords": [
+    "coordinate",
+    "transformation",
+    "visualization"
+  ]
 }

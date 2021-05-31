@@ -1,6 +1,6 @@
 {
   "name": "@antv/coord",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "Toolkit for mapping elements of sets into geometric objects.",
   "license": "MIT",
   "main": "lib/index.js",
@@ -54,11 +54,6 @@
     "ts-jest": "^26.5.1",
     "typescript": "^4.1.5"
   },
-  "keywords": [
-    "coordinate",
-    "transformation",
-    "visualization"
-  ],
   "jest": {
     "preset": "ts-jest",
     "collectCoverage": true,
@@ -101,5 +96,10 @@
   },
   "bugs": {
     "url": "https://github.com/antvis/coord/issues"
-  }
+  },
+  "keywords": [
+    "coordinate",
+    "transformation",
+    "visualization"
+  ]
 }

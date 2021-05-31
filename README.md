@@ -36,14 +36,14 @@ const optons: Options = {
   y: 0,
   width: 500,
   height: 500,
-  transforms: [['scale', 10, 10]]
+  transformations: [['cartesian']]
 }
 
 const coord = new Coordinate(options);
 coord.transform('translate', 10, 10);
-coord.map([0.5, 0.5]);
-coord.getSize();
-coord.getCenter();
+coord.map([0.5, 0.5]); // [260, 260]
+coord.getSize(); // [500, 50]
+coord.getCenter(); // [250, 250]
 ```
 
 ## 📎 Links

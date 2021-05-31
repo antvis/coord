@@ -9,3 +9,4 @@ export { reflect, reflectX, reflectY } from './reflect';
 export { rotate } from './rotate';
 export { helix } from './helix';
 export { parallel } from './parallel';
+export { shearX, shearY } from './shear';

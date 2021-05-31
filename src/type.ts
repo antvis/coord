@@ -11,6 +11,8 @@ type PolarTheta = ['polar.theta', number, number, number, number];
 type PolarRho = ['polar.rho', number, number, number, number];
 type Transpose = ['transpose'];
 type Scale = ['scale', number, number];
+type ShearX = ['shear.x', number];
+type ShearY = ['shear.y', number];
 type Reflect = ['reflect'];
 type ReflectX = ['reflect.x'];
 type ReflectY = ['reflect.y'];
@@ -28,6 +30,8 @@ export type Transformation =
   | PolarRho
   | Transpose
   | Scale
+  | ShearX
+  | ShearY
   | Reflect
   | ReflectX
   | ReflectY

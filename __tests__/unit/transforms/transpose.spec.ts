@@ -1,7 +1,7 @@
 import { Coordinate } from '../../../src';
 
 describe('Transpose', () => {
-  test('transpose exchanges dimensions', () => {
+  test('transpose() exchanges dimensions', () => {
     const coord = new Coordinate();
     coord.transform('transpose');
     expect(coord.map([0, 1])).toEqual([1, 0]);

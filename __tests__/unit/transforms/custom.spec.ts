@@ -3,7 +3,6 @@ import { Coordinate } from '../../../src';
 describe('Custom', () => {
   test('custom() can custom transform and untransform', () => {
     const coord = new Coordinate();
-
     coord.transform('custom', (x, y, width, height) => {
       expect(x).toBe(0);
       expect(y).toBe(0);

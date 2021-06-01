@@ -11,12 +11,18 @@ type PolarTheta = ['polar.theta', number, number, number, number];
 type PolarRho = ['polar.rho', number, number, number, number];
 type Transpose = ['transpose'];
 type Scale = ['scale', number, number];
+type ShearX = ['shear.x', number];
+type ShearY = ['shear.y', number];
 type Reflect = ['reflect'];
 type ReflectX = ['reflect.x'];
 type ReflectY = ['reflect.y'];
 type Rotate = ['rotate', number];
 type Helix = ['helix', number, number, number, number];
 type Parallel = ['parallel', number, number, number, number];
+type Fisheye = ['fisheye', number, number, number, number];
+type FisheyeX = ['fisheye.x', number, number];
+type FisheyeY = ['fisheye.y', number, number];
+type FisheyeCircular = ['fisheye.circular', number, number, number, number];
 
 export type Transformation =
   | Translate
@@ -28,12 +34,18 @@ export type Transformation =
   | PolarRho
   | Transpose
   | Scale
+  | ShearX
+  | ShearY
   | Reflect
   | ReflectX
   | ReflectY
   | Rotate
   | Helix
-  | Parallel;
+  | Parallel
+  | Fisheye
+  | FisheyeX
+  | FisheyeY
+  | FisheyeCircular;
 
 export type Options = {
   x?: number;

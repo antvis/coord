@@ -78,7 +78,7 @@ coord.clear();
 
 <a name="map" href="#map">#</a> **map**<i>(vector: Vector2 | Vector) : Vector2 | Vector </i>
 
-Applies specified transformations to input vector and returns transformed vector.
+Applies specified transformations to input vector and returns transformed vector. **All dimensions of input vector must be normalized value.**
 
 ```ts
 import { Coordinate } from '@antv/coord';
@@ -104,7 +104,7 @@ const coord = new Coordinate();
 coord
   .transform('cartesian')
   .transform('scale', 10, 10);
-  
+
 coord.invert([1500, 750]); // [0.5, 0.5]
 ```
 

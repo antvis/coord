@@ -37,12 +37,12 @@ const optons: Options = {
   width: 500,
   height: 500,
   transformations: [['cartesian']]
-}
+};
 
 const coord = new Coordinate(options);
 coord.transform('translate', 10, 10);
 coord.map([0.5, 0.5]); // [260, 260]
-coord.getSize(); // [500, 50]
+coord.getSize(); // [500, 500]
 coord.getCenter(); // [250, 250]
 ```
 

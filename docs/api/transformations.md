@@ -14,7 +14,7 @@ const coord1 = new Coord({
 
 // second
 const coord = new Coord();
-coord.transform('scale', 10,10);
+coord.transform('scale', 10, 10);
 ```
 
 **The order of selected transformations is very important, it will result in unexpected output or even some confusing errors if they are ordered incorrectly.**
@@ -22,7 +22,7 @@ coord.transform('scale', 10,10);
 The following rules must be noticed:
 
 - Affine transformations can be applied before or after cartesian transformation according to different situations.
-- Coordinate System transformations must applied before cartesian transformation, because they only accepts normalized points but cartesian transformation outputs normal points.
+- Coordinate System transformations must applied before cartesian transformation, because they only accept normalized points but cartesian transformation outputs normal points.
 - Fisheye Lens transformations must applied after cartesian transformation, because they accept normal points.
 
 ## Affine
@@ -64,9 +64,9 @@ coord1.transform('cartesian');
 coord1.map([0.1, 0.2]); //[60, 120]
 ```
 
-<a name="rotate" href="#rotate">#</a> **transform**<i>('rotate', theta: number, y: number) : Coordinate</i>
+<a name="rotate" href="#rotate">#</a> **transform**<i>('rotate', theta: number) : Coordinate</i>
 
-Sends `(x, y)` to `(cos(theta)) * x - sin(theta) * y, sin(theta) * x - cos(theta) * x)`.
+Sends `(x, y)` to `(cos(theta)) * x - sin(theta) * y, sin(theta) * x - cos(theta) * y)`.
 
 ```ts
 import { Coordinate } from '@antv/coord';
@@ -260,7 +260,7 @@ const coord = new Coordinate({
 coord.map([0, 1]) // [187.5, 150]
 ```
 
-<a name="parallel" href="#parallel">#</a> **transform**<i>('parallel', ...rest: number[]) : Coordinate</i>
+<a name="parallel" href="#parallel">#</a> **transform**<i>('parallel', x0: number, x1: number, y0: number, y1: number) : Coordinate</i>
 
 Transforms points in normalized parallel system to normalized cartesian system.
 
@@ -280,7 +280,7 @@ coord.map(from) // [10, 80, 85, 50, 160, 35, 235, 65]
 
 <a name="fisheye" href="#fisheye">#</a> **transform**<i>('fisheye', focusX: number, focusY: number, distortionX: number, distortionY: number) : Coordinate</i>
 
-Applies fisheye effects for both dimensions of input vector.
+Applies cartesian fisheye effects for both dimensions of input vector.
 
 ```ts
 import { Coordinate } from '@antv/coord';
@@ -294,7 +294,7 @@ coord.map([0.4, 0.2]); // [85.71428571428571, 13.63636363636364]
 
 <a name="fisheye.x" href="#fisheye.x">#</a> **transform**<i>('fisheye.x', focus: number,  distortion: number) : Coordinate</i>
 
-Applies fisheye effects for the x dimensions of input vector.
+Applies cartesian fisheye effects for the x dimensions of input vector.
 
 ```ts
 import { Coordinate } from '@antv/coord';
@@ -308,7 +308,7 @@ coord.map([0.4, 0.2]); // [85.71428571428571, 30]
 
 <a name="fisheye.y" href="#fisheye.y">#</a> **transform**<i>('fisheye.y', focus: number,  distortion: number) : Coordinate</i>
 
-Applies fisheye effects for the y dimensions of input vector.
+Applies cartesian fisheye effects for the y dimensions of input vector.
 
 ```ts
 import { Coordinate } from '@antv/coord';
@@ -336,19 +336,19 @@ coord.map([0.45, 0.45]); // [128.75388202501892, 64.37694101250946]
 
 ## User Defined
 
-<a name="custom" href="#custom">#</a> **transform**<i>('custom', transformer: Transformer) : Coordinate</i>
+<a name="custom" href="#custom">#</a> **transform**<i>('custom', callback: TransformCallback) : Coordinate</i>
 
-Customized transform and untransform functions.
+Customizes transform and untransform functions.
 
 ```ts
 import { Coordinate, Transformer } from '@antv/coord';
 
 const coord = new Coordinate();
-const transformer: Transformer = (x, y, width, height) => {
+coord.transform('custom', (x, y, width, height) => {
   x // 0
   y // 0
   width // 300
-  height // 150)
+  height // 150
   return {
     transform(vector) {
       const [v1, v2] = vector;
@@ -359,8 +359,7 @@ const transformer: Transformer = (x, y, width, height) => {
       return [(v1 - x) / width, (v2 - y) / height];
     },
   };
-}
-coord.transform('custom', transformer);
+});
 
 coord.map([0.5, 0.5]); // [150, 75])
 coord.invert([150, 75]) // [0.5, 0.5])
@@ -368,7 +367,7 @@ coord.invert([150, 75]) // [0.5, 0.5])
 
 <a name="matrix" href="#matrix">#</a> **transform**<i>('matrix', matrix3: Matrix3) : Coordinate</i>
 
-Customized transform matrix.
+Customizes transform matrix.
 
 ```ts
 import { Coordinate, Matrix3 } from '@antv/coord';

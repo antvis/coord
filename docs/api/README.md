@@ -1,9 +1,9 @@
 # API Reference
 
-There are two parts of @antv/coord. Follow the links below to learn more.
+There are two parts of API Reference for @antv/coord. Follow the links below to learn more.
 
 - [Coordinate](#coordinate)
-- [Transformations](#transformations)([Affine](#affine), [Coordinate System](#coordinate-system), [Fisheye](#fisheye))
+- [Transformations](#transformations)([Affine](#affine), [Coordinate System](#coordinate-system), [Fisheye Lens](#fisheye-lens), [User Defined](#user-defined))
 
 ## Coordinate
 
@@ -11,23 +11,23 @@ The object to specify and apply transformations.
 
 - [Coordinate](./coordinate.md#constructor) - Returns a new coordinate object with specified options.
 - [coord.update](./coordinate.md#update) - Updates the options of the coordinate object.
-- [coord.transform](./coordinate.md#transform) - Specifies transformation.
+- [coord.transform](./coordinate.md#transform) - Specifies transformation to be applied to the input vector.
 - [coord.clear](./coordinate.md#clear) - Clears current transformations.
-- [coord.map](./coordinate.md#map) - Applies specified transformations to input vector and returns transformed vector.
-- [coord.invert](./coordinate.md#invert) - Invert specified transformations to transformed vector and returns original vector.
+- [coord.map](./coordinate.md#map) - Applies specified transformations to input vector and returns the transformed vector.
+- [coord.invert](./coordinate.md#invert) - Invert the specified transformations to transformed vector and returns the original vector.
 - [coord.getSize](./coordinate.md#getSize) - Returns the size of the bounding box of the coordinate object.
 - [coord.getCenter](./coordinate.md#getCenter) - Returns the center of the bounding box of the coordinate object.
 - [coord.clone](./coordinate.md#clone) - Returns a new coordinate object with the same but independent options.
 
 ## Transformations
 
-Supported transformations can applied to input vector.
+Built-in transformations can applied to the input vector.
 
 ### Affine
 
 - [translate](./transformations.md#translate) - Sends `(x, y)` to `(x + b, y + b)`.
-- [scale](./transformations.md#scale) - Sends `(x, y)` to `(ax, by)`.
-- [rotate](./transformations.md#rotate) - Sends `(x, y)` to `(cos(theta)) * x - sin(theta) * y, sin(theta) * x - cos(theta) * x)`.
+- [scale](./transformations.md#scale) - Sends `(x, y)` to `(a * x, b * y)`.
+- [rotate](./transformations.md#rotate) - Sends `(x, y)` to `(cos(theta)) * x - sin(theta) * y, sin(theta) * x - cos(theta) * y)`.
 - [reflect](./transformations.md#reflect) - Sends `(x, y)` to `(-x, -y)`.
 - [reflect.x](./transformations.md#reflect.x) - Sends `(x, y)` to `(-x, y)`.
 - [reflect.y](./transformations.md#reflect.y) - Sends `(x, y)` to `(x, -y)`.
@@ -46,12 +46,12 @@ Supported transformations can applied to input vector.
 
 ### Fisheye Lens
 
-- [fisheye](./transformations.md#fisheye) - Applies fisheye effects for both dimensions of input vector.
-- [fisheye.x](./transformations.md#fisheye.y) - Applies fisheye effects for the x dimensions of input vector.
-- [fisheye.y](./transformations.md#fisheye.x) - Applies fisheye effects for the y dimensions of input vector.
+- [fisheye](./transformations.md#fisheye) - Applies cartesian fisheye effects for both dimensions of input vector.
+- [fisheye.x](./transformations.md#fisheye.y) - Applies cartesian fisheye effects for the x dimensions of input vector.
+- [fisheye.y](./transformations.md#fisheye.x) - Applies cartesian fisheye effects for the y dimensions of input vector.
 - [fisheye.circular](./transformations.md#fisheye.circular) - Applies circular fisheye effects for input vector.
 
 ### User Defined
 
-- [custom](./transformations.md#custom) - Customized transform and untransform functions.
-- [matrix](./transformations.md#matrix) - Customized transform matrix.
+- [custom](./transformations.md#custom) - Customizes transform and untransform functions.
+- [matrix](./transformations.md#matrix) - Customizes transform matrix.

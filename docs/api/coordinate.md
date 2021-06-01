@@ -15,7 +15,10 @@ const options: Options = {
   y: 20,
   width: 500,
   height: 600,
-  transformations: [['cartesian'], ['translate', 10, 10]],
+  transformations: [
+    ['cartesian'], 
+    ['translate', 10, 10]
+  ],
 };
 
 const coord = new Coordinate(options);
@@ -27,7 +30,7 @@ const coord = new Coordinate(options);
 | y               | y of the bounding box of the coordinate       | number  | `0`     |
 | width           | width of the bounding box of the coordinate   | number  | `300`   |
 | height          | height of the bounding box of the coordinate  | number  | `150`   |
-| transformations | transformations to be applied to input vector | `Array` | `[]`    |
+| transformations | transformations to be applied to input vector | Array   | `[]`    |
 
 <a name="update" href="#update">#</a> **update**<i>(options?: Options) : void</i>
 

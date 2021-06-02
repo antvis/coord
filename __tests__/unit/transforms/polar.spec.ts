@@ -63,7 +63,7 @@ describe('Polar', () => {
     expect(v2).toBeCloseTo(20);
   });
 
-  test('polar.theta() fixes radius to 1', () => {
+  test('polar.theta() fixes radius greater than 0 to 1', () => {
     const coord1 = new Coordinate({
       width: 200,
       height: 200,
@@ -81,9 +81,11 @@ describe('Polar', () => {
 
     const v = coord2.map([0.5, 0.5]);
     expect(coord2.invert(v)).toEqual([0.5, 1]);
+
+    expect(coord1.map([0, 0])).toEqual(coord2.map([0, 0]));
   });
 
-  test('polar.rho() fixes angle to 1', () => {
+  test('polar.rho() fixes angle getter than 0 to 1', () => {
     const coord1 = new Coordinate({
       width: 200,
       height: 200,

@@ -29,7 +29,7 @@ The following rules must be noticed:
 
 <a name="translate" href="#translate">#</a> **transform**<i>('translate', x: number, y: number) : Coordinate</i>
 
-Sends `(x, y)` to `(x + b, y + b)`.
+Sends `(x, y)` to `(x + a, y + b)`.
 
 ```ts
 import { Coordinate, Vector2 } from '@antv/coord';

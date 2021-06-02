@@ -62,8 +62,9 @@ export const polarTheta: CreateTransformer = (...args) => {
   const { transform, untransform } = polar(...args) as Transformer;
   return {
     transform(vector: Vector2) {
-      const [theta] = vector;
-      return transform([theta, 1]); // 半径永远都是 1
+      const theta = vector[0];
+      const radius = vector[1] === 0 ? 0 : 1;
+      return transform([theta, radius]);
     },
     untransform,
   };

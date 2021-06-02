@@ -2,6 +2,12 @@
 import { Linear } from '@antv/scale';
 import { Vector2, CreateTransformer, Transformer } from '../type';
 
+function move(theta: number, min: number, max: number) {
+  while (theta < min) theta += Math.PI * 2;
+  while (theta > max) theta -= Math.PI * 2;
+  return theta;
+}
+
 /**
  * Maps normalized value to normalized polar coordinate at the center of the bounding box.
  * It is used for Nightingale Rose Diagram.
@@ -43,7 +49,8 @@ export const polar: CreateTransformer = (params, x, y, width, height) => {
       const x = ((dx - 0.5) * 2) / sx;
       const y = ((dy - 0.5) * 2) / sy;
       const r = Math.sqrt(x ** 2 + y ** 2);
-      const theta = Math.atan2(y, x);
+      const t = Math.atan2(y, x);
+      const theta = move(t, startAngle, endAngle);
       const v1 = angle.invert(theta);
       const v2 = radius.invert(r);
       return [v1, v2];

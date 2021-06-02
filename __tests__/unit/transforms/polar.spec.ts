@@ -53,7 +53,7 @@ describe('Polar', () => {
   test('polar() inverts correctly if angle range is not [-pi, pi]', () => {
     const coord = new Coordinate().transform('polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1);
 
-    let from = [0.6, 0.5];
+    let from = [0.8, 0.5];
     let to = coord.map(from);
     expect(coord.invert(to)[0]).toBeCloseTo(from[0]);
     expect(coord.invert(to)[1]).toBeCloseTo(from[1]);
@@ -77,49 +77,5 @@ describe('Polar', () => {
     const [v1, v2] = coord.map([0, 1]);
     expect(v1).toBe(100);
     expect(v2).toBeCloseTo(20);
-  });
-
-  test('polar.theta() fixes radius greater than 0 to 1', () => {
-    const coord1 = new Coordinate({
-      width: 200,
-      height: 200,
-      transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
-    });
-
-    const coord2 = new Coordinate({
-      width: 200,
-      height: 200,
-      transformations: [['polar.theta', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
-    });
-
-    expect(coord1.map([0.5, 1])).toEqual(coord2.map([0.5, 0.5]));
-    expect(coord1.map([0, 1])).toEqual(coord2.map([0, 0.6]));
-
-    const v = coord2.map([0.5, 0.5]);
-    expect(coord2.invert(v)).toEqual([0.5, 1]);
-
-    expect(coord1.map([0, 0])).toEqual(coord2.map([0, 0]));
-  });
-
-  test('polar.rho() fixes angle getter than 0 to 1', () => {
-    const coord1 = new Coordinate({
-      width: 200,
-      height: 200,
-      transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
-    });
-
-    const coord2 = new Coordinate({
-      width: 200,
-      height: 200,
-      transformations: [['polar.rho', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
-    });
-
-    expect(coord1.map([1, 0.5])).toEqual(coord2.map([0.5, 0.5]));
-    expect(coord1.map([1, 0.6])).toEqual(coord2.map([0, 0.6]));
-
-    const v = coord2.map([0.5, 0.5]);
-    const [v1, v2] = coord2.invert(v);
-    expect(v1).toBeCloseTo(1);
-    expect(v2).toBeCloseTo(0.5);
   });
 });

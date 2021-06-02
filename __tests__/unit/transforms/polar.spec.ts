@@ -50,6 +50,22 @@ describe('Polar', () => {
     expect(coord.invert([150, 150])).toEqual([0.5, 0.5]);
   });
 
+  test('polar() inverts correctly if angle range is not [-pi, pi]', () => {
+    const coord = new Coordinate().transform('polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1);
+
+    let from = [0.6, 0.5];
+    let to = coord.map(from);
+    expect(coord.invert(to)[0]).toBeCloseTo(from[0]);
+    expect(coord.invert(to)[1]).toBeCloseTo(from[1]);
+
+    const coord2 = new Coordinate().transform('polar', (-Math.PI * 3) / 2, Math.PI / 2, 0, 1);
+
+    from = [0.2, 0.5];
+    to = coord2.map(from);
+    expect(coord2.invert(to)[0]).toBeCloseTo(from[0]);
+    expect(coord2.invert(to)[1]).toBeCloseTo(from[1]);
+  });
+
   test('polar() can draw doughnut chart', () => {
     const coord = new Coordinate({
       width: 200,
@@ -103,7 +119,7 @@ describe('Polar', () => {
 
     const v = coord2.map([0.5, 0.5]);
     const [v1, v2] = coord2.invert(v);
-    expect(v1).toBeCloseTo(0); // 角度 0 和 1 其实是一样的
+    expect(v1).toBeCloseTo(1);
     expect(v2).toBeCloseTo(0.5);
   });
 });

@@ -7,8 +7,6 @@ type Cartesian = ['cartesian'];
 type Custom = ['custom', TransformCallback];
 type Matrix = ['matrix', Matrix3];
 type Polar = ['polar', number, number, number, number];
-type PolarTheta = ['polar.theta', number, number, number, number];
-type PolarRho = ['polar.rho', number, number, number, number];
 type Transpose = ['transpose'];
 type Scale = ['scale', number, number];
 type ShearX = ['shear.x', number];
@@ -30,8 +28,6 @@ export type Transformation =
   | Custom
   | Matrix
   | Polar
-  | PolarTheta
-  | PolarRho
   | Transpose
   | Scale
   | ShearX

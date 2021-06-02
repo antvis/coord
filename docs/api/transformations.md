@@ -183,64 +183,6 @@ const coord = new Coordinate({
 coord.map([0, 1]); // [100, 50]
 ```
 
-<a name="polar.theta" href="#polar.theta">#</a> **transform**<i>('polar.theta', startAngle: number, endAngle: number, innerRadius: number, outerRadius: number) : Coordinate</i>
-
-Transforms points in normalized polar system which radius dimension fixed to 1 to normalized cartesian system.
-
-```ts
-import { Coordinate } from '@antv/coord';
-
-const coord1 = new Coordinate({
-  width: 200,
-  height: 200,
-  transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
-});
-
-const coord2 = new Coordinate({
-  width: 200,
-  height: 200,
-  transformations: [['polar.theta', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
-});
-
-const v1 = coord1.map([0.5, 1]);
-const v2 = coord2.map([0.5, 0.5]);
-
-v1[0] === v1[0]; // true
-v2[0] === v2[0]; // true
-
-const v = coord2.map([0.5, 0.5]);
-coord2.invert(v); // [0.5, 1]
-```
-
-<a name="polar.rho" href="#polar.rho">#</a> **transform**<i>('polar.rho', startAngle: number, endAngle: number, innerRadius: number, outerRadius: number) : Coordinate</i>
-
-Transforms points in normalized polar system which angle dimension fixed to 1 to normalized cartesian system.
-
-```ts
-import { Coordinate } from '@antv/coord';
-
-const coord1 = new Coordinate({
-  width: 200,
-  height: 200,
-  transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
-});
-
-const coord2 = new Coordinate({
-  width: 200,
-  height: 200,
-  transformations: [['polar.rho', -Math.PI / 2, (Math.PI * 3) / 2, 0.2, 0.8], ['cartesian']],
-});
-
-const v1 = coord1.map([1, 0.5]);
-const v2 = coord2.map([0.5, 0.5]);
-
-v1[0] === v1[0]; // true
-v2[0] === v2[0]; // true
-
-const v = coord2.map([0.5, 0.5]);
-coord2.invert(v); // [1, 0.5]
-```
-
 <a name="helix" href="#helix">#</a> **transform**<i>('helix', startAngle: number, endAngle: number, innerRadius: number, outerRadius: number) : Coordinate</i>
 
 Transforms points in normalized helix system to normalized cartesian system.

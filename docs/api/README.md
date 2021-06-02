@@ -39,8 +39,6 @@ Built-in transformations can applied to the input vector.
 
 - [cartesian](./transformations.md#cartesian) - Transforms points in normalized cartesian system to the bounding box of the coordinate.
 - [polar](./transformations.md#polar) - Transforms points in normalized polar system to normalized cartesian system.
-- [polar.theta](./transformations.md#polar.theta) - Transforms points in normalized polar system which radius dimension fixed to 1 to normalized cartesian system.
-- [polar.rho](./transformations.md#polar.rho) - Transforms points in normalized polar system which angle dimension fixed to 1 to normalized cartesian system.
 - [helix](./transformations.md#helix) - Transforms points in normalized helix system to normalized cartesian system.
 - [parallel](./transformations.md#parallel) - Transforms points in normalized parallel system to normalized cartesian system.
 

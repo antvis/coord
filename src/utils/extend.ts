@@ -6,7 +6,7 @@ import { Transform, Vector } from '../type';
 export function extend(transform: Transform) {
   return (vector: Vector) => {
     const v = [];
-    for (let i = 0; i < vector.length; i += 2) {
+    for (let i = 0; i < vector.length - 1; i += 2) {
       const from = [vector[i], vector[i + 1]];
       const to = transform(from);
       v.push(...to);

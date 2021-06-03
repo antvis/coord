@@ -100,10 +100,18 @@ describe('Coordinate', () => {
 
   test('coord.map() and coord.invert() composes built-in matrix transformation', () => {
     const coord = new Coordinate();
-    coord.transform('translate', 0.1, 0.2);
-    const [v1, v2] = coord.map([0, 0]);
-    expect(v1).toBeCloseTo(0.1);
-    expect(v2).toBeCloseTo(0.2);
+    coord.transform('cartesian');
+    coord.transform('translate', 10, 10);
+    coord.transform('scale', 2, 3);
+    coord.transform('translate', -10, -10);
+
+    let [v1, v2] = coord.map([0, 0]);
+    expect(v1).toBeCloseTo(-10);
+    expect(v2).toBeCloseTo(-20);
+
+    [v1, v2] = coord.invert([v1, v2]);
+    expect(v1).toBeCloseTo(0);
+    expect(v2).toBeCloseTo(0);
   });
 
   test('coord.map() and coord.invert() composes mixed function and matrix transformation', () => {

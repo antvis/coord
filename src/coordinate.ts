@@ -202,6 +202,7 @@ export class Coordinate {
   // 将连续的矩阵的运算合成一个变换函数
   private createMatrixTransform(matrixes: Matrix3[], invert: boolean): Transform {
     const matrix = mat3.create();
+    if (invert) matrixes.reverse();
     matrixes.forEach((m) => mat3.mul(matrix, matrix, m));
     if (invert) {
       mat3.invert(matrix, mat3.clone(matrix));

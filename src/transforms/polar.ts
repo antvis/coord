@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Linear } from '@antv/scale';
-import { Vector2, CreateTransformer, Transformer } from '../type';
-
-function move(theta: number, min: number, max: number) {
-  while (theta < min) theta += Math.PI * 2;
-  while (theta > max) theta -= Math.PI * 2;
-  return theta;
-}
+import { Vector2, CreateTransformer } from '../type';
+import { adjustAngle } from '../utils';
 
 /**
  * Maps normalized value to normalized polar coordinate at the center of the bounding box.
@@ -50,7 +45,7 @@ export const polar: CreateTransformer = (params, x, y, width, height) => {
       const y = ((dy - 0.5) * 2) / sy;
       const r = Math.sqrt(x ** 2 + y ** 2);
       const t = Math.atan2(y, x);
-      const theta = move(t, startAngle, endAngle);
+      const theta = adjustAngle(t, startAngle, endAngle);
       const v1 = angle.invert(theta);
       const v2 = radius.invert(r);
       return [v1, v2];

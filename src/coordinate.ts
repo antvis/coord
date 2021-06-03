@@ -25,14 +25,20 @@ import {
 } from './transforms';
 
 export class Coordinate {
-  // 当前的选项
-  private options: Options;
-
   // 所有变换合成后的函数
   private output: Transform;
 
   // 所有变换合成后的逆函数
   private input: Transform;
+
+  // 当前的选项
+  private options: Options = {
+    x: 0,
+    y: 0,
+    width: 300,
+    height: 150,
+    transformations: [],
+  };
 
   // 当前可以使用的变换
   private transformers = {
@@ -62,13 +68,6 @@ export class Coordinate {
    * @param options Custom options
    */
   constructor(options?: Partial<Options>) {
-    this.options = {
-      x: 0,
-      y: 0,
-      width: 300,
-      height: 150,
-      transformations: [],
-    };
     this.update(options);
   }
 

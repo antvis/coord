@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { CreateTransformer } from '../type';
+import { CreateTransformer, Vector2 } from '../type';
 
 /**
  * Exchange dimensions of the vector.
@@ -11,5 +11,8 @@ import { CreateTransformer } from '../type';
  * @returns transformer
  */
 export const transpose: CreateTransformer = (params, x, y, width, height) => {
-  return new Float32Array([0, 1, 0, 1, 0, 0, 0, 0, 0]);
+  return {
+    transform: ([x, y]: Vector2) => [y, x],
+    untransform: ([x, y]: Vector2) => [y, x],
+  };
 };

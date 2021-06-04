@@ -27,7 +27,7 @@ The following rules must be noticed:
 
 ## Affine
 
-<a name="translate" href="#translate">#</a> **transform**<i>('translate', x: number, y: number) : Coordinate</i>
+<a name="translate" href="#translate">#</a> **transform**<i>('translate', x: number, y: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#translate)
 
 Sends `(x, y)` to `(x + a, y + b)`.
 
@@ -46,7 +46,7 @@ coord1.transform('translate', 10, 20);
 coord1.map(v); //[10, 20]
 ```
 
-<a name="scale" href="#scale">#</a> **transform**<i>('scale', x: number, y: number) : Coordinate</i>
+<a name="scale" href="#scale">#</a> **transform**<i>('scale', x: number, y: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#scale)
 
 Sends `(x, y)` to `(a * x, b * x)`.
 
@@ -64,7 +64,7 @@ coord1.transform('cartesian');
 coord1.map([0.1, 0.2]); //[60, 120]
 ```
 
-<a name="rotate" href="#rotate">#</a> **transform**<i>('rotate', theta: number) : Coordinate</i>
+<a name="rotate" href="#rotate">#</a> **transform**<i>('rotate', theta: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#rotate)
 
 Sends `(x, y)` to `(cos(theta)) * x - sin(theta) * y, sin(theta) * x - cos(theta) * y)`.
 
@@ -77,7 +77,7 @@ coord.transform('cartesian');
 coord.map([0.8, 0]); // [120, 103.9230465888977]
 ```
 
-<a name="reflect" href="#reflect">#</a> **transform**<i>('reflect') : Coordinate</i>
+<a name="reflect" href="#reflect">#</a> **transform**<i>('reflect') : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#reflect)
 
 Sends `(x, y)` to `(-x, -y)`.
 
@@ -89,7 +89,7 @@ coord.transform('reflect');
 coord.map([0.3, 0.6]); // [-0.3, -0.6]
 ```
 
-<a name="reflect.x" href="#reflect.x">#</a> **transform**<i>('reflect.x') : Coordinate</i>
+<a name="reflect.x" href="#reflect.x">#</a> **transform**<i>('reflect.x') : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#reflectX)
 
 Sends `(x, y)` to `(-x, y)`.
 
@@ -101,7 +101,7 @@ coord.transform('reflect.x');
 coord.map([0.3, 0.6]); // [-0.3, 0.6]
 ```
 
-<a name="reflect.y" href="#reflect.y">#</a> **transform**<i>('reflect.y') : Coordinate</i>
+<a name="reflect.y" href="#reflect.y">#</a> **transform**<i>('reflect.y') : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#reflectY)
 
 Sends `(x, y)` to `(x, -y)`.
 
@@ -113,7 +113,7 @@ coord.transform('reflect.y');
 coord.map([0.3, 0.6]); // [0.3, -0.6]
 ```
 
-<a name="shear.x" href="#shear.x">#</a> **transform**<i>('shear.x', theta: number) : Coordinate</i>
+<a name="shear.x" href="#shear.x">#</a> **transform**<i>('shear.x', theta: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#shearX)
 
 Sends `(x, y)` to `(cot(theta) * y + x, y)`.
 
@@ -125,7 +125,7 @@ coord.transform('shear.x', Math.PI / 4);
 coord.map([0, 0.4]); // [0.4, 0.4]
 ```
 
-<a name="shear.y" href="#shear.y">#</a> **transform**<i>('shear.y', theta: number) : Coordinate</i>
+<a name="shear.y" href="#shear.y">#</a> **transform**<i>('shear.y', theta: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#shearY)
 
 Sends `(x, y)` to `(x, cot(theta) * x + y)`.
 
@@ -137,7 +137,7 @@ coord.transform('shear.y', Math.PI / 4);
 coord.map([0.4, 0]); // [0.4, 0.4]
 ```
 
-<a name="transpose" href="#transpose">#</a> **transform**<i>('transpose') : Coordinate</i>
+<a name="transpose" href="#transpose">#</a> **transform**<i>('transpose') : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#transpose)
 
 Sends `(x, y)` to `(y, x)`.
 
@@ -151,7 +151,7 @@ coord.map([0.3, 0.6]); // [0.6, 0.3]
 
 ## Coordinate System
 
-<a name="cartesian" href="#cartesian">#</a> **transform**<i>('cartesian') : Coordinate</i>
+<a name="cartesian" href="#cartesian">#</a> **transform**<i>('cartesian') : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesian)
 
 Transforms points in normalized cartesian system to the bounding box of the coordinate.
 
@@ -164,7 +164,7 @@ coord.map([0.5, 0.5]); // [150, 75]
 coord.map([1, 1]); // [300, 150]
 ```
 
-<a name="polar" href="#polar">#</a> **transform**<i>('polar', startAngle: number, endAngle: number, innerRadius: number, outerRadius: number) : Coordinate</i>
+<a name="polar" href="#polar">#</a> **transform**<i>('polar', startAngle: number, endAngle: number, innerRadius: number, outerRadius: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#polar)
 
 Transforms points in normalized polar system to normalized cartesian system.
 
@@ -183,7 +183,7 @@ const coord = new Coordinate({
 coord.map([0, 1]); // [100, 50]
 ```
 
-<a name="helix" href="#helix">#</a> **transform**<i>('helix', startAngle: number, endAngle: number, innerRadius: number, outerRadius: number) : Coordinate</i>
+<a name="helix" href="#helix">#</a> **transform**<i>('helix', startAngle: number, endAngle: number, innerRadius: number, outerRadius: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#helix)
 
 Transforms points in normalized helix system to normalized cartesian system.
 
@@ -202,7 +202,7 @@ const coord = new Coordinate({
 coord.map([0, 1]) // [187.5, 150]
 ```
 
-<a name="parallel" href="#parallel">#</a> **transform**<i>('parallel', x0: number, x1: number, y0: number, y1: number) : Coordinate</i>
+<a name="parallel" href="#parallel">#</a> **transform**<i>('parallel', x0: number, x1: number, y0: number, y1: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#parallel)
 
 Transforms points in normalized parallel system to normalized cartesian system.
 
@@ -220,7 +220,7 @@ coord.map(from) // [10, 80, 85, 50, 160, 35, 235, 65]
 
 ## Fisheye Lens
 
-<a name="fisheye" href="#fisheye">#</a> **transform**<i>('fisheye', focusX: number, focusY: number, distortionX: number, distortionY: number) : Coordinate</i>
+<a name="fisheye" href="#fisheye">#</a> **transform**<i>('fisheye', focusX: number, focusY: number, distortionX: number, distortionY: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
 
 Applies cartesian fisheye effects for both dimensions of input vector.
 
@@ -234,7 +234,7 @@ coord.transform('fisheye', 150, 75, 2, 2);
 coord.map([0.4, 0.2]); // [85.71428571428571, 13.63636363636364]
 ```
 
-<a name="fisheye.x" href="#fisheye.x">#</a> **transform**<i>('fisheye.x', focus: number,  distortion: number) : Coordinate</i>
+<a name="fisheye.x" href="#fisheye.x">#</a> **transform**<i>('fisheye.x', focus: number,  distortion: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
 
 Applies cartesian fisheye effects for the x dimensions of input vector.
 
@@ -248,7 +248,7 @@ coord.transform('fisheye.x', 150, 2);
 coord.map([0.4, 0.2]); // [85.71428571428571, 30]
 ```
 
-<a name="fisheye.y" href="#fisheye.y">#</a> **transform**<i>('fisheye.y', focus: number,  distortion: number) : Coordinate</i>
+<a name="fisheye.y" href="#fisheye.y">#</a> **transform**<i>('fisheye.y', focus: number,  distortion: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
 
 Applies cartesian fisheye effects for the y dimensions of input vector.
 
@@ -262,7 +262,7 @@ coord.transform('fisheye.y', 150, 2);
 coord.map([0.4, 0.2]); // [120, 13.63636363636364]
 ```
 
-<a name="fisheye.circular" href="#fisheye.circular">#</a> **transform**<i>('fisheye.circular', focusX: number, focusY: number, radius: number, distortion: number) : Coordinate</i>
+<a name="fisheye.circular" href="#fisheye.circular">#</a> **transform**<i>('fisheye.circular', focusX: number, focusY: number, radius: number, distortion: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#circularFisheye)
 
 Applies circular fisheye effects for input vector.
 

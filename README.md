@@ -3,7 +3,7 @@
 </h1>
 <div align="center">
 
-Toolkit for mapping elements of sets into geometric objects.
+Toolkit for mapping elements of sets into geometric objects. ([demo](https://observablehq.com/@pearmini/antv-coord))
 
 ![examples](https://gw.alipayobjects.com/mdn/rms_026665/afts/img/A*3jseR7EZEBwAAAAAAAAAAAAAARQnAQ)
 
@@ -51,7 +51,7 @@ coord.getCenter(); // [250, 250]
 
 ## 📎 Links
 
-- [Introduction](https://observablehq.com/@pearmini/antv-coord)
+- [Online Demo](https://observablehq.com/@pearmini/antv-coord)
 - [API Reference](./docs/api/README.md)
 
 ## 📮 Contribution

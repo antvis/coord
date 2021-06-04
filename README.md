@@ -1,10 +1,11 @@
 <h1 align="center">
 <b>@antv/coord</b>
 </h1>
-
 <div align="center">
 
-Toolkit for mapping elements of sets into geometric objects.
+Toolkit for mapping elements of sets into geometric objects. ([demo](https://observablehq.com/@pearmini/antv-coord))
+
+![examples](https://gw.alipayobjects.com/mdn/rms_026665/afts/img/A*3jseR7EZEBwAAAAAAAAAAAAAARQnAQ)
 
 [![Build Status](https://github.com/antvis/coord/workflows/build/badge.svg?branch=master)](https://github.com/antvis/coord/actions)
 [![Coverage Status](https://img.shields.io/coveralls/github/antvis/coord/master.svg)](https://coveralls.io/github/antvis/coord?branch=master)
@@ -16,9 +17,11 @@ Toolkit for mapping elements of sets into geometric objects.
 
 ## ✨ Features
 
-- **Powerful**
-- **High performance**
-- **Fully embrace TypeScript**
+- **Powerful**: Not only does @antv/coord provide some basic affine transformations(translate, rotate, scale, etc.), it also provide some advanced coordinate system transformations(polar, helix, parallel) and cool fisheye transformations.
+- **Fixable**: It is a independent lib which means you can use it with other libs besides [G2](https://github.com/antvis/g2/), such as [D3](https://github.com/d3/d3) to create some awesome charts and animations.
+- **Fully embrace TypeScript**: All code are written in TypeScript and complete type definition files are provided.
+
+![bubbles](https://gw.alipayobjects.com/mdn/rms_026665/afts/img/A*G5jIQLRQ86QAAAAAAAAAAAAAARQnAQ)
 
 ## 📦 Installation
 
@@ -48,7 +51,7 @@ coord.getCenter(); // [250, 250]
 
 ## 📎 Links
 
-- [Introduction](https://observablehq.com/@pearmini/antv-coord)
+- [Online Demo](https://observablehq.com/@pearmini/antv-coord)
 - [API Reference](./docs/api/README.md)
 
 ## 📮 Contribution

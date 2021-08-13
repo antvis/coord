@@ -73,12 +73,12 @@
   "limit-size": [
     {
       "path": "dist/coordinate.min.js",
-      "limit": "6 Kb",
+      "limit": "8 Kb",
       "gzip": true
     },
     {
       "path": "dist/coordinate.min.js",
-      "limit": "20 Kb"
+      "limit": "25 Kb"
     }
   ],
   "husky": {

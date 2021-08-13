@@ -120,7 +120,7 @@ export class Coordinate {
    */
   public getCenter() {
     const { x, y, width, height } = this.options;
-    return [(x + width) / 2, (y + height) / 2];
+    return [(x * 2 + width) / 2, (y * 2 + height) / 2];
   }
 
   /**

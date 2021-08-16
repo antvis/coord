@@ -24,7 +24,7 @@ describe('Coordinate', () => {
       y: 20,
     });
 
-    expect(coord.getCenter()).toEqual([55, 35]);
+    expect(coord.getCenter()).toEqual([60, 45]);
   });
 
   test('new Coordinate() has expected defaults', () => {

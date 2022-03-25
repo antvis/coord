@@ -30,14 +30,11 @@ export const parallel: CreateTransformer = (params, x, y, width, height) => {
         const y = sy.map(e);
         v.push(x, y);
       }
-
-      // 将第一个点加在最后
-      v.push(1, v[1]);
       return v;
     },
     untransform(vector: Vector) {
       const v = [];
-      for (let i = 0; i < vector.length - 2; i += 2) {
+      for (let i = 0; i < vector.length; i += 2) {
         const y = vector[i + 1];
         v.push(sy.invert(y));
       }

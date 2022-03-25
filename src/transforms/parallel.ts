@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Linear, Band } from '@antv/scale';
+import { Linear, Point } from '@antv/scale';
 import { CreateTransformer, Vector } from '../type';
 
 /**
@@ -20,7 +20,7 @@ export const parallel: CreateTransformer = (params, x, y, width, height) => {
     transform(vector: Vector) {
       const v = [];
       const len = vector.length;
-      const sx = new Band({
+      const sx = new Point({
         domain: new Array(len).fill(0).map((_, i) => i),
         range: [x0, x1],
       });

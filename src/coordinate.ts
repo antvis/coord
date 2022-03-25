@@ -109,7 +109,7 @@ export class Coordinate {
    * Returns the size of the bounding box of the coordinate.
    * @returns [width, height]
    */
-  public getSize() {
+  public getSize(): [number, number] {
     const { width, height } = this.options;
     return [width, height];
   }
@@ -118,7 +118,7 @@ export class Coordinate {
    * Returns the center of the bounding box of the coordinate.
    * @returns [centerX, centerY]
    */
-  public getCenter() {
+  public getCenter(): [number, number] {
     const { x, y, width, height } = this.options;
     return [(x * 2 + width) / 2, (y * 2 + height) / 2];
   }

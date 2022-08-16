@@ -17,9 +17,9 @@ type ReflectY = ['reflect.y'];
 type Rotate = ['rotate', number];
 type Helix = ['helix', number, number, number, number];
 type Parallel = ['parallel', number, number, number, number];
-type Fisheye = ['fisheye', number, number, number, number];
-type FisheyeX = ['fisheye.x', number, number];
-type FisheyeY = ['fisheye.y', number, number];
+type Fisheye = ['fisheye', number, number, number, number, boolean?];
+type FisheyeX = ['fisheye.x', number, number, boolean?];
+type FisheyeY = ['fisheye.y', number, number, boolean?];
 type FisheyeCircular = ['fisheye.circular', number, number, number, number];
 
 export type Transformation =
@@ -67,7 +67,7 @@ export type Transformer = {
 };
 
 export type CreateTransformer = (
-  params: number[] | [TransformCallback] | [Matrix3],
+  params: number[] | (number | boolean)[] | [TransformCallback] | [Matrix3],
   x: number,
   y: number,
   width: number,

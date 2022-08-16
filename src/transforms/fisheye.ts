@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // https://github.com/d3/d3-plugins/blob/master/fisheye/fisheye.js
+import { Linear } from '@antv/scale';
 import { CreateTransformer, Vector2 } from '../type';
 
 function fisheyeTransform(x: number, focus: number, distortion: number, min: number, max: number) {
@@ -16,6 +17,17 @@ function fisheyeUntransform(tx: number, focus: number, distortion: number, min: 
   return m / ((m * (distortion + 1)) / (tx - focus) - distortion * f) + focus;
 }
 
+function normalize(focus: number, length: number, isVisual: boolean) {
+  if (isVisual) {
+    const s = new Linear({
+      range: [0, 1],
+      domain: [0, length],
+    });
+    return s.map(focus);
+  }
+  return focus;
+}
+
 /**
  * Applies cartesian fisheye transforms for the first dimension of vector2.
  * @param params [focus, distortion]
@@ -26,16 +38,17 @@ function fisheyeUntransform(tx: number, focus: number, distortion: number, min: 
  * @returns transformer
  */
 export const fisheyeX: CreateTransformer = (params, x, y, width, height) => {
-  const [focus, distortion] = params as number[];
+  const [focus, distortion, isVisual = false] = params as number[];
+  const normalizedFocusX = normalize(focus, width, isVisual as boolean);
   return {
     transform(vector: Vector2) {
       const [vx, vy] = vector;
-      const fx = fisheyeTransform(vx, focus, distortion, x, x + width);
+      const fx = fisheyeTransform(vx, normalizedFocusX, distortion, 0, 1);
       return [fx, vy];
     },
     untransform(vector: Vector2) {
       const [fx, vy] = vector;
-      const vx = fisheyeUntransform(fx, focus, distortion, x, x + width);
+      const vx = fisheyeUntransform(fx, normalizedFocusX, distortion, 0, 1);
       return [vx, vy];
     },
   };
@@ -51,16 +64,18 @@ export const fisheyeX: CreateTransformer = (params, x, y, width, height) => {
  * @returns transformer
  */
 export const fisheyeY: CreateTransformer = (params, x, y, width, height) => {
-  const [focus, distortion] = params as number[];
+  const [focus, distortion, isVisual = false] = params as number[];
+  const normalizedFocusY = normalize(focus, height, isVisual as boolean);
+
   return {
     transform(vector: Vector2) {
       const [vx, vy] = vector;
-      const fy = fisheyeTransform(vy, focus, distortion, y, y + height);
+      const fy = fisheyeTransform(vy, normalizedFocusY, distortion, 0, 1);
       return [vx, fy];
     },
     untransform(vector: Vector2) {
       const [vx, fy] = vector;
-      const vy = fisheyeUntransform(fy, focus, distortion, y, y + height);
+      const vy = fisheyeUntransform(fy, normalizedFocusY, distortion, 0, 1);
       return [vx, vy];
     },
   };
@@ -76,18 +91,22 @@ export const fisheyeY: CreateTransformer = (params, x, y, width, height) => {
  * @returns transformer
  */
 export const fisheye: CreateTransformer = (params, x, y, width, height) => {
-  const [focusX, focusY, distortionX, distortionY] = params as number[];
+  const [focusX, focusY, distortionX, distortionY, isVisual = false] = params as number[];
+
+  const normalizedFocusX = normalize(focusX, width, isVisual as boolean);
+  const normalizedFocusY = normalize(focusY, height, isVisual as boolean);
+
   return {
     transform(vector: Vector2) {
       const [vx, vy] = vector;
-      const fx = fisheyeTransform(vx, focusX, distortionX, x, x + width);
-      const fy = fisheyeTransform(vy, focusY, distortionY, y, y + height);
+      const fx = fisheyeTransform(vx, normalizedFocusX, distortionX, 0, 1);
+      const fy = fisheyeTransform(vy, normalizedFocusY, distortionY, 0, 1);
       return [fx, fy];
     },
     untransform(vector: Vector2) {
       const [fx, fy] = vector;
-      const vx = fisheyeUntransform(fx, focusX, distortionX, x, x + width);
-      const vy = fisheyeUntransform(fy, focusY, distortionY, y, y + height);
+      const vx = fisheyeUntransform(fx, normalizedFocusX, distortionX, 0, 1);
+      const vy = fisheyeUntransform(fy, normalizedFocusY, distortionY, 0, 1);
       return [vx, vy];
     },
   };

@@ -3,26 +3,29 @@ import { Coordinate } from '../../../src';
 describe('Fisheye', () => {
   test('fisheye.x() applies cartesian fisheye transformation for the first dimension of vector2', () => {
     const coord = new Coordinate({
-      transformations: [['cartesian']],
+      transformations: [['fisheye.x', 0.5, 2], ['cartesian']],
     });
-    coord.transform('fisheye.x', 150, 2);
 
     let from = [0.4, 0.2];
     let to = coord.map(from);
-    expect(to).toEqual([85.71428571428571, 30]);
+    expect(to).toEqual([85.71428571428572, 30]);
     expect(coord.invert(to)).toEqual(from);
 
     from = [0.7, 0.3];
     to = coord.map(from);
     expect(coord.invert(to)).toEqual(from);
+    coord.clear();
 
-    coord.transform('fisheye.x', 150, 2);
+    coord.transform('fisheye.x', 150, 2, true);
+    coord.transform('cartesian');
+
     from = [0.5, 0.3];
     to = coord.map(from);
     expect(coord.invert(to)).toEqual(from);
 
     coord.clear();
     coord.transform('fisheye.x', 0, 2);
+    coord.transform('cartesian');
     from = [-0.5, 0.3];
     to = coord.map(from);
     expect(coord.invert(to)).toEqual(from);
@@ -30,15 +33,18 @@ describe('Fisheye', () => {
 
   test('fisheye.y() applies cartesian fisheye transformation for the second dimension of vector2', () => {
     const coord = new Coordinate({
-      transformations: [['cartesian']],
+      transformations: [['fisheye.y', 0.5, 2], ['cartesian']],
     });
-    coord.transform('fisheye.y', 75, 2);
 
     let from = [0.4, 0.2];
     let to = coord.map(from);
     expect(to).toEqual([120, 13.63636363636364]);
     expect(coord.invert(to)[0]).toBeCloseTo(from[0]);
     expect(coord.invert(to)[1]).toBeCloseTo(from[1]);
+
+    coord.clear();
+    coord.transform('fisheye.y', 75, 2, true);
+    coord.transform('cartesian');
 
     from = [0.7, 0.3];
     to = coord.map(from);
@@ -48,15 +54,18 @@ describe('Fisheye', () => {
 
   test('fisheye() applies cartesian fisheye transformation for both dimensions of vector2', () => {
     const coord = new Coordinate({
-      transformations: [['cartesian']],
+      transformations: [['fisheye', 0.5, 0.5, 2, 2], ['cartesian']],
     });
-    coord.transform('fisheye', 150, 75, 2, 2);
 
     let from = [0.4, 0.2];
     let to = coord.map(from);
-    expect(to).toEqual([85.71428571428571, 13.63636363636364]);
+    expect(to).toEqual([85.71428571428572, 13.63636363636364]);
     expect(coord.invert(to)[0]).toBeCloseTo(from[0]);
     expect(coord.invert(to)[1]).toBeCloseTo(from[1]);
+
+    coord.clear();
+    coord.transform('fisheye', 150, 75, 2, 2, true);
+    coord.transform('cartesian');
 
     from = [0.7, 0.3];
     to = coord.map(from);

@@ -20,7 +20,7 @@ type Parallel = ['parallel', number, number, number, number];
 type Fisheye = ['fisheye', number, number, number, number, boolean?];
 type FisheyeX = ['fisheye.x', number, number, boolean?];
 type FisheyeY = ['fisheye.y', number, number, boolean?];
-type FisheyeCircular = ['fisheye.circular', number, number, number, number];
+type FisheyeCircular = ['fisheye.circular', number, number, number, number, boolean?];
 
 export type Transformation =
   | Translate

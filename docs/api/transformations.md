@@ -7,9 +7,7 @@ import { Coord } from '@antv/coord';
 
 // first
 const coord1 = new Coord({
-  transformations: [
-    ['scale', 10, 10]
-  ]
+  transformations: [['scale', 10, 10]],
 });
 
 // second
@@ -174,10 +172,7 @@ import { Coordinate } from '@antv/coord';
 const coord = new Coordinate({
   width: 200,
   height: 300,
-  transformations: [
-    ['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1], 
-    ['cartesian']
-  ],
+  transformations: [['polar', -Math.PI / 2, (Math.PI * 3) / 2, 0, 1], ['cartesian']],
 });
 
 coord.map([0, 1]); // [100, 50]
@@ -193,13 +188,10 @@ import { Coordinate } from '@antv/coord';
 const coord = new Coordinate({
   width: 300,
   height: 300,
-  transformations: [
-    ['helix', 0, Math.PI * 6, 0, 1], 
-    ['cartesian']
-  ],
+  transformations: [['helix', 0, Math.PI * 6, 0, 1], ['cartesian']],
 });
 
-coord.map([0, 1]) // [187.5, 150]
+coord.map([0, 1]); // [187.5, 150]
 ```
 
 <a name="parallel" href="#parallel">#</a> **transform**<i>('parallel', x0: number, x1: number, y0: number, y1: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#parallel)
@@ -215,50 +207,53 @@ coord.transform('cartesian');
 coord.transform('translate', 10, 5);
 
 const from: Vector = [0.5, 0.3, 0.2, 0.4];
-coord.map(from) // [10, 80, 85, 50, 160, 35, 235, 65]
+coord.map(from); // [10, 80, 85, 50, 160, 35, 235, 65]
 ```
 
 ## Fisheye Lens
 
-<a name="fisheye" href="#fisheye">#</a> **transform**<i>('fisheye', focusX: number, focusY: number, distortionX: number, distortionY: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
+<a name="fisheye" href="#fisheye">#</a> **transform**<i>('fisheye', focusX: number, focusY: number, distortionX: number, distortionY: number, isVisual?: boolean) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
 
 Applies cartesian fisheye effects for both dimensions of input vector.
 
 ```ts
 import { Coordinate } from '@antv/coord';
 
-const coord = new Coordinate({
-  transformations: [['cartesian']],
-});
-coord.transform('fisheye', 150, 75, 2, 2);
+const coord = new Coordinate();
+// The first way to declare.
+coord.transform('fisheye', 0.5, 0.5, 2, 2); // Abstract value by default.
+coord.transform('cartesian');
+
+// The second way to declare.
+coord.transform('fisheye', 300, 150, 2, 2, true); // visual value.
+coord.transform('cartesian');
+
 coord.map([0.4, 0.2]); // [85.71428571428571, 13.63636363636364]
 ```
 
-<a name="fisheye.x" href="#fisheye.x">#</a> **transform**<i>('fisheye.x', focus: number,  distortion: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
+<a name="fisheye.x" href="#fisheye.x">#</a> **transform**<i>('fisheye.x', focus: number, distortion: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
 
 Applies cartesian fisheye effects for the x dimensions of input vector.
 
 ```ts
 import { Coordinate } from '@antv/coord';
 
-const coord = new Coordinate({
-  transformations: [['cartesian']],
-});
-coord.transform('fisheye.x', 150, 2);
+const coord = new Coordinate();
+coord.transform('fisheye.x', 0.5, 2);
+coord.transform('cartesian');
 coord.map([0.4, 0.2]); // [85.71428571428571, 30]
 ```
 
-<a name="fisheye.y" href="#fisheye.y">#</a> **transform**<i>('fisheye.y', focus: number,  distortion: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
+<a name="fisheye.y" href="#fisheye.y">#</a> **transform**<i>('fisheye.y', focus: number, distortion: number) : Coordinate</i> · [examples](https://observablehq.com/@pearmini/antv-coord#cartesianFisheye)
 
 Applies cartesian fisheye effects for the y dimensions of input vector.
 
 ```ts
 import { Coordinate } from '@antv/coord';
 
-const coord = new Coordinate({
-  transformations: [['cartesian']],
-});
-coord.transform('fisheye.y', 150, 2);
+const coord = new Coordinate();
+coord.transform('fisheye.y', 0.5, 2);
+coord.transform('cartesian');
 coord.map([0.4, 0.2]); // [120, 13.63636363636364]
 ```
 
@@ -287,10 +282,10 @@ import { Coordinate, Transformer } from '@antv/coord';
 
 const coord = new Coordinate();
 coord.transform('custom', (x, y, width, height) => {
-  x // 0
-  y // 0
-  width // 300
-  height // 150
+  x; // 0
+  y; // 0
+  width; // 300
+  height; // 150
   return {
     transform(vector) {
       const [v1, v2] = vector;
@@ -304,7 +299,7 @@ coord.transform('custom', (x, y, width, height) => {
 });
 
 coord.map([0.5, 0.5]); // [150, 75])
-coord.invert([150, 75]) // [0.5, 0.5])
+coord.invert([150, 75]); // [0.5, 0.5])
 ```
 
 <a name="matrix" href="#matrix">#</a> **transform**<i>('matrix', matrix3: Matrix3) : Coordinate</i>

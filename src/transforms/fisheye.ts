@@ -17,15 +17,14 @@ function fisheyeUntransform(tx: number, focus: number, distortion: number, min: 
   return m / ((m * (distortion + 1)) / (tx - focus) - distortion * f) + focus;
 }
 
-function normalize(focus: number, length: number, isVisual: boolean) {
-  if (isVisual) {
-    const s = new Linear({
-      range: [0, 1],
-      domain: [0, length],
-    });
-    return s.map(focus);
-  }
-  return focus;
+function normalize(focus: number, length: number, isVisual: boolean): number {
+  if (!isVisual) return focus;
+
+  const s = new Linear({
+    range: [0, 1],
+    domain: [0, length],
+  });
+  return s.map(focus);
 }
 
 /**
@@ -122,27 +121,60 @@ export const fisheye: CreateTransformer = (params, x, y, width, height) => {
  * @returns transformer
  */
 export const fisheyeCircular: CreateTransformer = (params, x, y, width, height) => {
-  const [focusX, focusY, radius, distortion] = params as number[];
+  const [focusX, focusY, radius, distortion, isVisual = false] = params as number[];
+  const normalizedFocusX = normalize(focusX, width, isVisual as boolean);
+  const normalizedFocusY = normalize(focusY, height, isVisual as boolean);
+  const normalXRadius = normalize(radius, width, true);
+  const normalYRadius = normalize(radius, height, true);
+
+  /**
+   * 与圆相同，同环下畸变值相同。r => focus到椭圆边的距离
+   */
+
   return {
     transform(vector: Vector2) {
       const [x, y] = vector;
       const dx = x - focusX;
       const dy = y - focusY;
       const dd = Math.sqrt(dx * dx + dy * dy);
-      if (dd > radius) return [x, y];
-      const r = fisheyeTransform(dd, 0, distortion, 0, radius);
+
       const theta = Math.atan2(dy, dx);
-      return [focusX + r * Math.cos(theta), focusY + r * Math.sin(theta)];
+
+      // 求椭圆坐标：已知夹角，求坐标
+      // 长轴*cos(theta)
+      const ovalX = normalXRadius > normalYRadius ? normalXRadius * Math.cos(theta) : normalYRadius * Math.cos(theta);
+      // 短轴*sin(theta)
+      const ovalY = normalXRadius < normalYRadius ? normalXRadius * Math.sin(theta) : normalYRadius * Math.sin(theta);
+      // 该夹角下 focus 到椭圆的距离
+      const ovalRadius = Math.sqrt(ovalX * ovalX + ovalY * ovalY);
+
+      if (dd > ovalRadius) return [x, y];
+
+      const r = fisheyeTransform(dd, 0, distortion, 0, ovalRadius);
+
+      return [normalizedFocusX + r * Math.cos(theta), normalizedFocusY + r * Math.sin(theta)];
     },
     untransform(vector: Vector2) {
-      const [tx, ty] = vector;
-      const dx = tx - focusX;
-      const dy = ty - focusY;
+      const [x, y] = vector;
+      const dx = x - focusX;
+      const dy = y - focusY;
       const dd = Math.sqrt(dx * dx + dy * dy);
-      if (dd > radius) return [tx, ty];
-      const x = fisheyeUntransform(dd, 0, distortion, 0, radius);
+
       const theta = Math.atan2(dy, dx);
-      return [focusX + x * Math.cos(theta), focusY + x * Math.sin(theta)];
+
+      // 求椭圆坐标：已知夹角，求坐标
+      // 长轴*cos(theta)
+      const ovalX = normalXRadius > normalYRadius ? normalXRadius * Math.cos(theta) : normalYRadius * Math.cos(theta);
+      // 短轴*sin(theta)
+      const ovalY = normalXRadius < normalYRadius ? normalXRadius * Math.sin(theta) : normalYRadius * Math.sin(theta);
+      // 该夹角下 focus 到椭圆的距离
+      const ovalRadius = Math.sqrt(ovalX * ovalX + ovalY * ovalY);
+
+      if (dd > ovalRadius) return [x, y];
+
+      const r = fisheyeTransform(dd, 0, distortion, 0, ovalRadius);
+
+      return [normalizedFocusX + r * Math.cos(theta), normalizedFocusY + r * Math.sin(theta)];
     },
   };
 };

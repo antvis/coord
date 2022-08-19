@@ -1,6 +1,6 @@
 {
   "name": "@antv/coord",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Toolkit for mapping elements of sets into geometric objects.",
   "license": "MIT",
   "main": "lib/index.js",

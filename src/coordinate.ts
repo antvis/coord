@@ -118,9 +118,28 @@ export class Coordinate {
    * Returns the center of the bounding box of the coordinate.
    * @returns [centerX, centerY]
    */
-  public getCenter(): [number, number] {
+  public getBoxCenter(): [number, number] {
     const { x, y, width, height } = this.options;
-    return [(x * 2 + width) / 2, (y * 2 + height) / 2];
+    return [x + width / 2, y + height / 2];
+  }
+
+  /**
+   * Returns the radial center when polar exists, or else returns center of bounding box of the coordinate.
+   * @returns [centerX, centerY]
+   */
+  public getCenter(): [number, number] {
+    const { x, y, width, height, transformations } = this.options;
+
+    // If has polar transoformer.
+    const polar = transformations.find((transformation) => transformation[0] === 'polar');
+    if (polar) {
+      const [name, ...params] = polar;
+      const createTransformer = this.transformers[name];
+      // @ts-ignore
+      const { offsetX, offsetY } = createTransformer([...params], x, y, width, height);
+      return [x + (width / 2) * (1 + offsetX), y + (height / 2) * (1 - offsetY)];
+    }
+    return this.getBoxCenter();
   }
 
   /**

@@ -1,9 +1,10 @@
 import { deepMix, identity } from '@antv/util';
-import { mat3, vec3 } from '@antv/matrix-util';
+import { mat3, vec3 } from 'gl-matrix';
 import { Options, Transformation, Transform, Transformer, Matrix3, Vector3, Vector2, Vector } from './type';
-import { compose, isMatrix, extend } from './utils';
+import { compose, isMatrix, extend, extend3D } from './utils';
 import {
   cartesian,
+  cartesian3D,
   translate,
   custom,
   matrix,
@@ -43,6 +44,7 @@ export class Coordinate {
   // 当前可以使用的变换
   private transformers = {
     cartesian,
+    cartesian3D,
     translate,
     custom,
     matrix,
@@ -63,11 +65,19 @@ export class Coordinate {
     'fisheye.circular': fisheyeCircular,
   };
 
+  private is3D: boolean;
+
   /**
    * Create a new Coordinate Object.
    * @param options Custom options
    */
   constructor(options?: Partial<Options>) {
+    this.is3D = options?.transformations?.[0]?.[0] === 'cartesian3D';
+    if (this.is3D) {
+      this.options.z = options.z || 0;
+      this.options.depth = options.depth || 0;
+    }
+
     this.update(options);
   }
 
@@ -107,20 +117,22 @@ export class Coordinate {
 
   /**
    * Returns the size of the bounding box of the coordinate.
-   * @returns [width, height]
+   * @returns [width, height, depth]
    */
-  public getSize(): [number, number] {
-    const { width, height } = this.options;
-    return [width, height];
+  public getSize(): [number, number] | [number, number, number] {
+    const { width, height, depth } = this.options;
+    return this.is3D ? [width, height, depth] : [width, height];
   }
 
   /**
    * Returns the center of the bounding box of the coordinate.
-   * @returns [centerX, centerY]
+   * @returns [centerX, centerY, centerZ]
    */
-  public getCenter(): [number, number] {
-    const { x, y, width, height } = this.options;
-    return [(x * 2 + width) / 2, (y * 2 + height) / 2];
+  public getCenter(): [number, number] | [number, number, number] {
+    const { x, y, z, width, height, depth } = this.options;
+    return this.is3D
+      ? [(x * 2 + width) / 2, (y * 2 + height) / 2, (z * 2 + depth) / 2]
+      : [(x * 2 + width) / 2, (y * 2 + height) / 2];
   }
 
   /**
@@ -167,13 +179,17 @@ export class Coordinate {
     const getter = invert ? (d: Transformer) => d.untransform : (d: Transformer) => d.transform;
     const matrixes = [];
     const transforms = [];
-    const add = (transform: Transform, extended = true) => transforms.push(extended ? extend(transform) : transform);
+    const add = (transform: Transform, extended = true) =>
+      transforms.push(extended ? (this.is3D ? extend3D(transform) : extend(transform)) : transform);
 
     for (const [name, ...args] of transformations) {
       const createTransformer = this.transformers[name];
       if (createTransformer) {
-        const { x, y, width, height } = this.options;
-        const transformer = createTransformer([...args], x, y, width, height);
+        const { x, y, z, width, height, depth } = this.options;
+        const transformer = this.is3D
+          ? // @ts-ignore
+            createTransformer([...args], x, y, z, width, height, depth)
+          : createTransformer([...args], x, y, width, height);
         if (isMatrix(transformer)) {
           // 如果当前变换是矩阵变换，那么先保存下来
           matrixes.push(transformer);

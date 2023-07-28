@@ -1,4 +1,4 @@
 export { compose } from './compose';
 export { isMatrix } from './isMatrix';
-export { extend } from './extend';
+export { extend, extend3D } from './extend';
 export { adjustAngle } from './adjustAngle';

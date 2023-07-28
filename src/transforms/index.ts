@@ -1,5 +1,6 @@
 export { translate } from './translate';
 export { cartesian } from './cartesian';
+export { cartesian3D } from './cartesian3D';
 export { custom } from './custom';
 export { matrix } from './matrix';
 export { polar } from './polar';

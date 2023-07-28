@@ -1,4 +1,5 @@
-import { Coordinate, Options, Vector2, Transformation } from '../../src';
+import { Coordinate, Options, Transformation } from '../../src';
+import { Vector2 } from '../../src/type';
 
 describe('Coordinate', () => {
   test('coord.getOptions() returns the reference for options', () => {
@@ -152,5 +153,28 @@ describe('Coordinate', () => {
 
     coord.clear();
     expect(coord.getOptions().transformations).toEqual([]);
+  });
+
+  test('coord.getSize() returns current size of the bounding box in 3D', () => {
+    const coord = new Coordinate({
+      width: 100,
+      height: 50,
+      depth: 100,
+      transformations: [['cartesian3D']],
+    });
+
+    expect(coord.getSize()).toEqual([100, 50, 100]);
+    expect(coord.getCenter()).toEqual([50, 25, 50]);
+    expect(coord.getOptions()).toEqual({
+      x: 0,
+      y: 0,
+      z: 0,
+      width: 100,
+      height: 50,
+      depth: 100,
+      transformations: [['cartesian3D']],
+    });
+    expect(coord.map([0, 0, 0])).toEqual([0, 0, 0]);
+    expect(coord.invert([0, 0, 0])).toEqual([0, 0, 0]);
   });
 });

@@ -1,9 +1,10 @@
-import { vec3, mat3 } from '@antv/matrix-util';
+import { vec3, mat3 } from 'gl-matrix';
 
 export type TransformCallback = (x: number, y: number, width: number, height: number) => Transformer;
 
 type Translate = ['translate', number, number];
 type Cartesian = ['cartesian'];
+type Cartesian3D = ['cartesian3D'];
 type Custom = ['custom', TransformCallback];
 type Matrix = ['matrix', Matrix3];
 type Polar = ['polar', number, number, number, number];
@@ -25,6 +26,7 @@ type FisheyeCircular = ['fisheye.circular', number, number, number, number, bool
 export type Transformation =
   | Translate
   | Cartesian
+  | Cartesian3D
   | Custom
   | Matrix
   | Polar
@@ -46,8 +48,10 @@ export type Transformation =
 export type Options = {
   x?: number;
   y?: number;
+  z?: number;
   width?: number;
   height?: number;
+  depth?: number;
   transformations?: Transformation[];
 };
 

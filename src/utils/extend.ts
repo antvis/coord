@@ -14,3 +14,15 @@ export function extend(transform: Transform) {
     return v;
   };
 }
+
+export function extend3D(transform: Transform) {
+  return (vector: Vector) => {
+    const v = [];
+    for (let i = 0; i < vector.length - 1; i += 3) {
+      const from = [vector[i], vector[i + 1], vector[i + 2]];
+      const to = transform(from);
+      v.push(...to);
+    }
+    return v;
+  };
+}

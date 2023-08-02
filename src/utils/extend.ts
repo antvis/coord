@@ -1,4 +1,4 @@
-import { Transform, Vector } from '../type';
+import { Transform, Transform3D, Vector } from '../type';
 
 // 对普通的变换函数进行扩展
 // 对于长度大于2的向量，两两为一个点的 x 和 y 坐标
@@ -15,7 +15,7 @@ export function extend(transform: Transform) {
   };
 }
 
-export function extend3D(transform: Transform) {
+export function extend3D(transform: Transform3D) {
   return (vector: Vector) => {
     const v = [];
     for (let i = 0; i < vector.length - 1; i += 3) {

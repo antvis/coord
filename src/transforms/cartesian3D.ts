@@ -1,8 +1,7 @@
 import { Linear } from '@antv/scale';
-import { Vector3, CreateTransformer } from '../type';
+import { Vector3, CreateTransformer3D } from '../type';
 
-// @ts-ignore
-export const cartesian3D: CreateTransformer = (params, x, y, z, width, height, depth) => {
+export const cartesian3D: CreateTransformer3D = (params, x, y, z, width, height, depth) => {
   const sx = new Linear({
     range: [x, x + width],
   });

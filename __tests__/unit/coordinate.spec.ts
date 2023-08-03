@@ -1,4 +1,5 @@
-import { Coordinate, Options, Vector2, Transformation } from '../../src';
+import { Coordinate, Options, Transformation } from '../../src';
+import { Vector2 } from '../../src/type';
 
 describe('Coordinate', () => {
   test('coord.getOptions() returns the reference for options', () => {

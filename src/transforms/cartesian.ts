@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Linear } from '@antv/scale';
-import { Vector2, CreateTransformer } from '../type';
+import { CreateTransformer, Vector2 } from '../type';
 
 /**
  * Maps normalized value to the bounding box of coordinate.

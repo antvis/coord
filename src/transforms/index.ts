@@ -11,3 +11,7 @@ export { helix } from './helix';
 export { parallel } from './parallel';
 export { shearX, shearY } from './shear';
 export { fisheye, fisheyeX, fisheyeY, fisheyeCircular } from './fisheye';
+
+export { cartesian3D } from './cartesian3D';
+export { translate3D } from './translate3D';
+export { scale3D } from './scale3D';

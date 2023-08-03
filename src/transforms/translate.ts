@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { mat3 } from '@antv/matrix-util';
+import { mat3 } from 'gl-matrix';
 import { CreateTransformer } from '../type';
 
 /**

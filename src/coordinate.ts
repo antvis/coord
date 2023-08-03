@@ -172,7 +172,7 @@ export class Coordinate {
     for (const [name, ...args] of transformations) {
       const createTransformer = this.transformers[name];
       if (createTransformer) {
-        const { x, y, z, width, height, depth } = this.options;
+        const { x, y, width, height } = this.options;
         const transformer = createTransformer([...args], x, y, width, height);
         if (isMatrix(transformer)) {
           // 如果当前变换是矩阵变换，那么先保存下来

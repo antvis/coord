@@ -78,4 +78,17 @@ describe('Polar', () => {
     expect(v1).toBe(100);
     expect(v2).toBeCloseTo(20);
   });
+
+  test.only('polar() maps normalized value to normalized polar coordinate with auto adjust', () => {
+    const coord = new Coordinate({
+      width: 200,
+      height: 300,
+      transformations: [['polar', (-11 / 10) * Math.PI, (1 / 10) * Math.PI, 0, 1, true]],
+    });
+
+    expect(coord.map([0.7, 0.58])).toEqual([0.6324264444247805, 0.5211192142721996]);
+    const [v1, v2] = coord.invert([0.6324264444247805, 0.5211192142721996]);
+    expect(v1).toBeCloseTo(0.7);
+    expect(v2).toBeCloseTo(0.58);
+  });
 });

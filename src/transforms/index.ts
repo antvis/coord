@@ -14,4 +14,5 @@ export { fisheye, fisheyeX, fisheyeY, fisheyeCircular } from './fisheye';
 
 export { cartesian3D } from './cartesian3D';
 export { translate3D } from './translate3D';
+export { transpose3D } from './transpose3D';
 export { scale3D } from './scale3D';

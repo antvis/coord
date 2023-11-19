@@ -2,7 +2,7 @@ import { deepMix, identity } from '@antv/util';
 import { mat4, vec4 } from 'gl-matrix';
 import { Vector3, Vector, Transform3D, Options3D, Transformation3D, Transformer3D, Matrix4, Vector4 } from './type';
 import { compose, isMatrix, extend3D } from './utils';
-import { cartesian3D, translate3D, scale3D } from './transforms';
+import { cartesian3D, translate3D, scale3D, transpose3D } from './transforms';
 
 export class Coordinate3D {
   // 所有变换合成后的函数
@@ -27,6 +27,7 @@ export class Coordinate3D {
     cartesian3D,
     translate3D,
     scale3D,
+    transpose3D,
   };
 
   /**

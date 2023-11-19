@@ -1,4 +1,4 @@
-import { Coordinate, Coordinate3D, Vector3 } from '../../../src';
+import { Coordinate3D, Vector3 } from '../../../src';
 
 describe('Transpose3D', () => {
   test('transpose() exchanges dimensions', () => {

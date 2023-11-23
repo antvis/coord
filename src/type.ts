@@ -32,6 +32,7 @@ type FisheyeCircular = ['fisheye.circular', number, number, number, number, bool
 
 type Cartesian3D = ['cartesian3D'];
 type Translate3D = ['translate3D', number, number, number];
+type Transpose3D = ['transpose3D'];
 type Scale3D = ['scale3D', number, number, number];
 
 export type Transformation =
@@ -54,7 +55,7 @@ export type Transformation =
   | FisheyeX
   | FisheyeY
   | FisheyeCircular;
-export type Transformation3D = Cartesian3D | Translate3D | Scale3D;
+export type Transformation3D = Cartesian3D | Translate3D | Scale3D | Transpose3D;
 
 export type Options = {
   x?: number;

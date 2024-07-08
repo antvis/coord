@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Linear } from '@antv/scale';
 import { Vector2, CreateTransformer } from '../type';
-import { adjustAngle } from '../utils';
+import { adjustAngle, autoPolar } from '../utils';
 
 /**
  * Maps normalized value to normalized polar coordinate at the center of the bounding box.
  * It is used for Nightingale Rose Diagram.
- * @param params [x0, x1, y0, y1]
+ * @param params [x0, x1, y0, y1, auto]
  * @param x x of the the bounding box of coordinate
  * @param y y of the the bounding box of coordinate
  * @param width width of the the bounding box of coordinate
@@ -14,7 +14,7 @@ import { adjustAngle } from '../utils';
  * @returns transformer
  */
 export const polar: CreateTransformer = (params, x, y, width, height) => {
-  const [startAngle, endAngle, innerRadius, outerRadius] = params as number[];
+  const [startAngle, endAngle, innerRadius, outerRadius, auto] = params as [number, number, number, number, boolean];
   const radius = new Linear({
     range: [innerRadius, outerRadius],
   });
@@ -24,19 +24,22 @@ export const polar: CreateTransformer = (params, x, y, width, height) => {
   const aspect = height / width;
   const sx = aspect > 1 ? 1 : aspect;
   const sy = aspect > 1 ? 1 / aspect : 1;
+  const [offsetX, offsetY, radiusOffset] = auto ? autoPolar(startAngle, endAngle, width, height) : [0, 0, 0];
+
   return {
+    offsetX,
+    offsetY,
     transform(vector: Vector2) {
       const [v1, v2] = vector;
       const theta = angle.map(v1);
-      const r = radius.map(v2);
-
+      const r = radius.map(v2) * (1 + radiusOffset);
       // 根据长宽比调整，使得极坐标系内切外接矩形
       const x = r * Math.cos(theta) * sx;
       const y = r * Math.sin(theta) * sy;
 
       // 将坐标的原点移动到外接矩形的中心，并且将长度设置为一半
-      const dx = x * 0.5 + 0.5;
-      const dy = y * 0.5 + 0.5;
+      const dx = x * 0.5 + 0.5 * (1 + offsetX);
+      const dy = y * 0.5 + 0.5 * (1 - offsetY);
       return [dx, dy];
     },
     untransform(vector: Vector2) {
